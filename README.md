@@ -16,6 +16,10 @@ git clone https://github.com/TanavShah/DBMS-Mess-Management-System.git
 ```
 
 ```
+cd DBMS-Mess-Management-System
+```
+
+```
 createdb mess
 ```
 
