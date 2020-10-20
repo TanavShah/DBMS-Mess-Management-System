@@ -49,7 +49,7 @@ CREATE TABLE Worker (
 INSERT INTO Worker (enrollment_no, worker_role) VALUES ('54541287', 'Cleaner');
 
 CREATE TABLE Menu (
-    menu_id INT NOT NULL,
+    menu_id SERIAL NOT NULL,
     menu_date TIMESTAMP NOT NULL,
     title_id INT NOT NULL,
     item TEXT NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE Expense (
 INSERT INTO Expense (week_number, year_number, amount) VALUES (36,2020,120.36);
 
 CREATE TABLE Feedback (
-    id INT NOT NULL,
+    id SERIAL NOT NULL,
     date_time TIMESTAMP NOT NULL,
     student_id VARCHAR(20) NOT NULL,
     title VARCHAR (100) NOT NULL,

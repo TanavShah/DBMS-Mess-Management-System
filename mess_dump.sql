@@ -28,12 +28,16 @@ ALTER TABLE ONLY public.menu DROP CONSTRAINT menu_pkey;
 ALTER TABLE ONLY public.feedback DROP CONSTRAINT feedback_pkey;
 ALTER TABLE ONLY public.expense DROP CONSTRAINT expense_pkey;
 ALTER TABLE ONLY public.dailywastage DROP CONSTRAINT dailywastage_pkey;
+ALTER TABLE public.menu ALTER COLUMN menu_id DROP DEFAULT;
+ALTER TABLE public.feedback ALTER COLUMN id DROP DEFAULT;
 DROP TABLE public.workerrole;
 DROP TABLE public.worker;
 DROP TABLE public.userdata;
 DROP TABLE public.title;
 DROP TABLE public.student;
+DROP SEQUENCE public.menu_menu_id_seq;
 DROP TABLE public.menu;
+DROP SEQUENCE public.feedback_id_seq;
 DROP TABLE public.feedback;
 DROP TABLE public.expense;
 DROP TABLE public.dailywastage;
@@ -115,6 +119,28 @@ CREATE TABLE public.feedback (
 ALTER TABLE public.feedback OWNER TO postgres;
 
 --
+-- Name: feedback_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.feedback_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.feedback_id_seq OWNER TO postgres;
+
+--
+-- Name: feedback_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.feedback_id_seq OWNED BY public.feedback.id;
+
+
+--
 -- Name: menu; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -127,6 +153,28 @@ CREATE TABLE public.menu (
 
 
 ALTER TABLE public.menu OWNER TO postgres;
+
+--
+-- Name: menu_menu_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.menu_menu_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.menu_menu_id_seq OWNER TO postgres;
+
+--
+-- Name: menu_menu_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.menu_menu_id_seq OWNED BY public.menu.menu_id;
+
 
 --
 -- Name: student; Type: TABLE; Schema: public; Owner: postgres
@@ -198,6 +246,20 @@ CREATE TABLE public.workerrole (
 ALTER TABLE public.workerrole OWNER TO postgres;
 
 --
+-- Name: feedback id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.feedback ALTER COLUMN id SET DEFAULT nextval('public.feedback_id_seq'::regclass);
+
+
+--
+-- Name: menu menu_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.menu ALTER COLUMN menu_id SET DEFAULT nextval('public.menu_menu_id_seq'::regclass);
+
+
+--
 -- Data for Name: dailywastage; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -259,6 +321,20 @@ INSERT INTO public.worker VALUES ('54541287', 'Cleaner');
 --
 
 INSERT INTO public.workerrole VALUES ('Cleaner', 12576.25, '07:30:00', '16:00:00');
+
+
+--
+-- Name: feedback_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.feedback_id_seq', 1, false);
+
+
+--
+-- Name: menu_menu_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.menu_menu_id_seq', 1, false);
 
 
 --
