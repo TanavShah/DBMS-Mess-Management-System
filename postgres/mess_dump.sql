@@ -84,7 +84,7 @@ SET default_with_oids = false;
 CREATE TABLE public.dailywastage (
     curr_date timestamp without time zone NOT NULL,
     amount double precision NOT NULL,
-    weight double precision NOT NULL
+    waste_weight double precision NOT NULL
 );
 
 
@@ -112,7 +112,7 @@ CREATE TABLE public.feedback (
     date_time timestamp without time zone NOT NULL,
     student_id character varying(20) NOT NULL,
     title character varying(100) NOT NULL,
-    description character varying(1000) NOT NULL
+    feedback_description character varying(1000) NOT NULL
 );
 
 
@@ -196,7 +196,7 @@ ALTER TABLE public.student OWNER TO postgres;
 
 CREATE TABLE public.title (
     title_id integer NOT NULL,
-    name character varying(100) NOT NULL,
+    title_name character varying(100) NOT NULL,
     start_time time(0) without time zone NOT NULL,
     end_time time(0) without time zone NOT NULL
 );
