@@ -60,22 +60,22 @@ INSERT INTO Menu (menu_id, menu_date, title_id, item) VALUES (1,'2016-06-22',1,'
 
 CREATE TABLE Title (
     title_id INT NOT NULL,
-    name VARCHAR (100) NOT NULL,
+    title_name VARCHAR (100) NOT NULL,
     start_time TIME (0) NOT NULL,
     end_time TIME (0) NOT NULL,
     PRIMARY KEY (title_id)
 );
 
-INSERT INTO Title (title_id, name, start_time, end_time) VALUES (3,'Dinner','19:30:00','21:30:00');
+INSERT INTO Title (title_id, title_name, start_time, end_time) VALUES (3,'Dinner','19:30:00','21:30:00');
 
 CREATE TABLE DailyWastage (
     curr_date TIMESTAMP NOT NULL,
     amount DOUBLE PRECISION NOT NULL,
-    weight DOUBLE PRECISION NOT NULL,
+    waste_weight DOUBLE PRECISION NOT NULL,
     PRIMARY KEY (curr_date)
 );
 
-INSERT INTO DailyWastage (curr_date, amount, weight) VALUES ('2020-10-20',100.20, 50.34);
+INSERT INTO DailyWastage (curr_date, amount, waste_weight) VALUES ('2020-10-20',100.20, 50.34);
 
 CREATE TABLE Expense (
     week_number INT NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE Feedback (
     date_time TIMESTAMP NOT NULL,
     student_id VARCHAR(20) NOT NULL,
     title VARCHAR (100) NOT NULL,
-    description VARCHAR (1000) NOT NULL,
+    feedback_description VARCHAR (1000) NOT NULL,
     PRIMARY KEY (id),
     -- CONSTRAINT fk_student_id
     FOREIGN KEY (student_id) 
@@ -99,4 +99,4 @@ CREATE TABLE Feedback (
         ON DELETE CASCADE
 );
 
-INSERT INTO Feedback (id, date_time, student_id, title, description) VALUES (1, '2020-10-20 20:00:00', '18118080', 'Review', 'Good Overall');
+INSERT INTO Feedback (id, date_time, student_id, title, feedback_description) VALUES (1, '2020-10-20 20:00:00', '18118080', 'Review', 'Good Overall');
