@@ -14,8 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('feedback/', include("feedback.urls")),
+    path('menu/', include("menu.urls")),
+    path('user/', include("user.urls")),
+    path('expense/', include("expense.urls")),
+    path('wastage/', include("wastage.urls")),
 ]
+
+# superuser :
+# username = superuser
+# email = superuser@gmail.com
+# pass = superuser
