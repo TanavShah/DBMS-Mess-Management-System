@@ -56,7 +56,7 @@ CREATE TABLE Menu (
     PRIMARY KEY (menu_id)
 );
 
-INSERT INTO Menu (menu_id, menu_date, title_id, item) VALUES (1,'2016-06-22',1,'Food');
+INSERT INTO Menu (menu_date, title_id, item) VALUES ('2016-06-22',1,'Food');
 
 CREATE TABLE Title (
     title_id INT NOT NULL,
@@ -99,4 +99,4 @@ CREATE TABLE Feedback (
         ON DELETE CASCADE
 );
 
-INSERT INTO Feedback (id, date_time, student_id, title, feedback_description) VALUES (1, '2020-10-20 20:00:00', '18118080', 'Review', 'Good Overall');
+INSERT INTO Feedback (date_time, student_id, title, feedback_description) VALUES ('2020-10-20 20:00:00', '18118080', 'Review', 'Good Overall');
