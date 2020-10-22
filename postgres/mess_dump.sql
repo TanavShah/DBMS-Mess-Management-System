@@ -327,14 +327,14 @@ INSERT INTO public.workerrole VALUES ('Cleaner', 12576.25, '07:30:00', '16:00:00
 -- Name: feedback_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.feedback_id_seq', 1, false);
+SELECT pg_catalog.setval('public.feedback_id_seq', 1, true);
 
 
 --
 -- Name: menu_menu_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.menu_menu_id_seq', 1, false);
+SELECT pg_catalog.setval('public.menu_menu_id_seq', 1, true);
 
 
 --
