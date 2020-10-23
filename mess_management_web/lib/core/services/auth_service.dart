@@ -12,11 +12,17 @@ import 'api.dart';
 
 class AuthService {
   Api _api = locator<Api>();
+//
+//  UserType _userType;
+//  Student _student;
+//  Worker _worker;
+//  User _user;
 
-  UserType _userType;
-  Student _student;
+  // dummy
+  UserType _userType = UserType.student;
+  Student _student = Student.dummy();
   Worker _worker;
-  User _user;
+  User _user = User.dummy();
 
   UserType get userType => _userType;
   User get user => _user;

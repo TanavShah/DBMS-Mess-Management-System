@@ -5,7 +5,7 @@ import 'package:mess_management_web/core/services/auth_service.dart';
 import 'package:mess_management_web/service_locator.dart';
 import 'router.dart' as myRouter;
 
-String initRoute = 'login';
+String initRoute = 'home';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

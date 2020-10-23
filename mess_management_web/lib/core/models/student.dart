@@ -17,4 +17,7 @@ class Student {
       _$StudentFromJson(json);
 
   Map<String, dynamic> toJson() => _$StudentToJson(this);
+
+  factory Student.dummy() =>
+      Student(User.dummy(), 2018, "CSE", "amishgarg123@gmail.com");
 }
