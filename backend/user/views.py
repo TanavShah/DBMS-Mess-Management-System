@@ -2,11 +2,13 @@ from django.http import HttpResponse
 from django.db import connection
 import json
 
-
 # Create your views here.
+from rest_framework import status
+
+
 def get_student(request):
     if request.method != 'GET':
-        return HttpResponse(status=400)
+        return HttpResponse(content='only get request allowed', status=status.HTTP_400_BAD_REQUEST)
 
     hostel = request.GET.get('hostel', None)
     enrollment_no = request.GET.get('enrollment_no', None)
@@ -55,7 +57,7 @@ def get_student(request):
 
 def add_student(request):
     if request.method != 'POST':
-        return HttpResponse(status=400)
+        return HttpResponse(content='only post request allowed', status=status.HTTP_400_BAD_REQUEST)
 
     enrollment_no = request.POST.get('enrollment_no', None)
     full_name = request.POST.get('full_name', None)
@@ -65,6 +67,19 @@ def add_student(request):
     year_no = int(request.POST.get('year_no', None))
     branch = request.POST.get('branch', None)
     email = request.POST.get('email', None)
+
+    if (enrollment_no is None) or (full_name is None) or (phone_no is None) or (dateOfBirth is None) or (
+            bhawan is None) or (year_no is None) or (branch is None) or (email is None):
+        return HttpResponse(content="all data not provided : enrollment_no, full_name, phone_no, data_of_birth, "
+                                    "hostel, year_no, branch, email", status=status.HTTP_400_BAD_REQUEST)
+
+    with connection.cursor() as cursor:
+        cursor.execute("""
+        SELECT EXISTS( SELECT * FROM public.userdata WHERE enrollment_no = %s);
+        """, (enrollment_no,))
+        row = cursor.fetchone()
+    if row[0]:
+        return HttpResponse(content="user with this enrollment_no already exists", status=status.HTTP_400_BAD_REQUEST)
 
     with connection.cursor() as cursor:
         cursor.execute("""
@@ -86,7 +101,7 @@ def add_student(request):
 
 def get_worker(request):
     if request.method != 'GET':
-        return HttpResponse(status=400)
+        return HttpResponse(content='only get request allowed', status=status.HTTP_400_BAD_REQUEST)
 
     hostel = request.GET.get('hostel', None)
     enrollment_no = request.GET.get('enrollment_no', None)
@@ -135,7 +150,7 @@ def get_worker(request):
 
 def add_worker(request):
     if request.method != 'POST':
-        return HttpResponse(status=400)
+        return HttpResponse(content='only post request allowed', status=status.HTTP_400_BAD_REQUEST)
 
     enrollment_no = request.POST.get('enrollment_no', None)
     full_name = request.POST.get('full_name', None)
@@ -143,6 +158,27 @@ def add_worker(request):
     dateOfBirth = request.POST.get('date_of_birth', None)
     bhawan = request.POST.get('hostel', None)
     worker_role = request.POST.get('worker_role', None)
+
+    if (enrollment_no is None) or (full_name is None) or (phone_no is None) or (dateOfBirth is None) or (
+            bhawan is None) or (worker_role is None):
+        return HttpResponse(content="all data not provided : enrollment_no, full_name, phone_no, data_of_birth, "
+                                    "hostel, worker_role", status=status.HTTP_400_BAD_REQUEST)
+
+    with connection.cursor() as cursor:
+        cursor.execute("""
+        SELECT EXISTS( SELECT * FROM public.userdata WHERE enrollment_no = %s);
+        """, (enrollment_no,))
+        row = cursor.fetchone()
+    if row[0]:
+        return HttpResponse(content="user with this enrollment_no already exists", status=status.HTTP_400_BAD_REQUEST)
+
+    with connection.cursor() as cursor:
+        cursor.execute("""
+        SELECT EXISTS( SELECT * FROM public.workerrole WHERE LOWER(worker_role) LIKE LOWER(%s));
+        """, (worker_role,))
+        row = cursor.fetchone()
+    if not row[0]:
+        return HttpResponse(content="worker role does not exists", status=status.HTTP_400_BAD_REQUEST)
 
     with connection.cursor() as cursor:
         cursor.execute("""
@@ -164,7 +200,7 @@ def add_worker(request):
 
 def get_workerrole(request):
     if request.method != 'GET':
-        return HttpResponse(status=400)
+        return HttpResponse(content='only get request allowed', status=status.HTTP_400_BAD_REQUEST)
 
     with connection.cursor() as cursor:
         cursor.execute("""
@@ -184,12 +220,25 @@ def get_workerrole(request):
 
 def add_workerrole(request):
     if request.method != 'POST':
-        return HttpResponse(status=400)
+        return HttpResponse(content='only post request allowed', status=status.HTTP_400_BAD_REQUEST)
 
     worker_role = request.POST.get('worker_role', None)
     salary = float(request.POST.get('salary', None))
     shift_start = request.POST.get('shift_start', None)
     shift_end = request.POST.get('shift_end', None)
+
+    if (worker_role is None) or (salary is None) or (shift_start is None) or (shift_end is None):
+        return HttpResponse(content="all data not provided : worker_role, salary, shift_start, shift_end",
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    with connection.cursor() as cursor:
+        cursor.execute("""
+        SELECT EXISTS (SELECT * FROM public.workerrole WHERE LOWER(worker_role) LIKE LOWER(%s));
+        """, (worker_role,))
+        row = cursor.fetchone()
+
+    if row[0]:
+        return HttpResponse(content='this workerrole already exists', status=status.HTTP_400_BAD_REQUEST)
 
     with connection.cursor() as cursor:
         cursor.execute("""
