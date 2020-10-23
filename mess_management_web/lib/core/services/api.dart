@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'exceptions.dart';
 
 class Api {
-  static const URL = 'https://asia-east2-tortoise-89870.cloudfunctions.net/';
+  static const URL = '';
 
   var client = http.Client();
 
