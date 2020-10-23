@@ -3,14 +3,9 @@ from datetime import datetime, timedelta, date
 
 # Create your models here.
 
-def get_date_range_from_week_year(week_no: int, year_no: int):
-    first_day = datetime.strptime(f"{year_no}-W{week_no-1}-1", "%Y-W%W-%w").date()
-    last_day = first_day + timedelta(days=6.9)
-    return first_day, last_day
-
 class Menu:
     def __init__(self, menu_date: datetime, title_name: str, items: list, **kwargs):
-        self.menu_date = menu_date
+        self.menu_date = datetime.combine(menu_date.date(), datetime.min.time())
         with connection.cursor() as cursor:
             cursor.execute("SELECT title_id, start_time, end_time FROM public.title WHERE title_name=%s", [title_name])
             self.title_id, self.start_time, self.end_time = cursor.fetchone()
