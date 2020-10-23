@@ -289,6 +289,9 @@ def add_workerrole(request):
 
 
 def get_login_info(request):
+    if request.method != 'GET':
+        return HttpResponse(content='only get request allowed', status=status.HTTP_400_BAD_REQUEST)
+
     enrollment_no = request.GET.get('enrollment_no', None)
     if enrollment_no is None:
         return HttpResponse(content="all data not provided : enrollment_no", status=status.HTTP_400_BAD_REQUEST)

@@ -61,9 +61,7 @@ return : 200 if success
 ```
 type : get
 http://127.0.0.1:8000/user/student
-or 
 http://127.0.0.1:8000/user/student?hostel=govind bhawan
-or
 http://127.0.0.1:8000/user/student?enrollment_no=18118080
 return json response
 ```
@@ -81,6 +79,7 @@ return 200  if success
 ```
 type : get
 http://127.0.0.1:8000/user/workerrole
+http://127.0.0.1:8000/user/workerrole?worker_role=cleaner
 return json response
 ```
 #### ADD
@@ -97,9 +96,7 @@ return 200  if success
 ```
 type : get
 http://127.0.0.1:8000/user/worker
-or 
 http://127.0.0.1:8000/user/worker?hostel=govind bhawan
-or
 http://127.0.0.1:8000/user/worker?enrollment_no=18118080
 return json response
 ```
@@ -111,3 +108,9 @@ body :
 enrollment_no,full_name,phone_no,date_of_birth,hostel,worker_role : all strings
 return 200  if success
 ```
+
+### LOGIN
+```
+http://127.0.0.1:8000/user/login?enrollment_no=18118080
+```
+
