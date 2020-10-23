@@ -12,5 +12,5 @@ class ExpenseSerializer(serializers.Serializer):
         return expense
 
     @classmethod
-    def from_week_year(cls, week_no: int, year_no: int, **kwargs):
-        return cls(Expense.from_week_year(week_no, year_no))
+    def from_week_year(cls, week_number: int, year_number: int, **kwargs):
+        return cls(Expense.from_week_year(week_number, year_number))
