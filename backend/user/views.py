@@ -64,7 +64,7 @@ def add_student(request):
     phone_no = request.POST.get('phone_no', None)
     dateOfBirth = request.POST.get('date_of_birth', None)
     bhawan = request.POST.get('hostel', None)
-    year_no = int(request.POST.get('year_no', None))
+    year_no = request.POST.get('year_no', None)
     branch = request.POST.get('branch', None)
     email = request.POST.get('email', None)
 
@@ -72,6 +72,10 @@ def add_student(request):
             bhawan is None) or (year_no is None) or (branch is None) or (email is None):
         return HttpResponse(content="all data not provided : enrollment_no, full_name, phone_no, data_of_birth, "
                                     "hostel, year_no, branch, email", status=status.HTTP_400_BAD_REQUEST)
+    try:
+        year_no = int(year_no)
+    except ValueError:
+        return HttpResponse(content='year can not convert into int', status=status.HTTP_400_BAD_REQUEST)
 
     with connection.cursor() as cursor:
         cursor.execute("""
@@ -120,7 +124,7 @@ def get_worker(request):
     elif enrollment_no is not None:
         with connection.cursor() as cursor:
             cursor.execute("""
-            SELECT public.worker.enrollment_no , worker_role, full_name, phone_no, dateofbirth, bhawan
+            SELECT public.worker.enrollment_no , worker_role, full_name, phone_no, dateofbirth, bhawan, salary, shift_start, shift_end
             FROM public.worker INNER JOIN public.userdata
             ON public.worker.enrollment_no = public.userdata.enrollment_no
             WHERE public.worker.enrollment_no = %s ;
@@ -131,9 +135,12 @@ def get_worker(request):
     else:
         with connection.cursor() as cursor:
             cursor.execute("""
-            SELECT public.worker.enrollment_no , worker_role, full_name, phone_no, dateofbirth, bhawan
-            FROM public.worker INNER JOIN public.userdata
-            ON public.worker.enrollment_no = public.userdata.enrollment_no
+            SELECT public.worker.enrollment_no , public.worker.worker_role, full_name, phone_no, dateofbirth, 
+            bhawan,salary, shift_start, shift_end 
+            FROM (public.worker INNER JOIN public.userdata
+            ON public.worker.enrollment_no = public.userdata.enrollment_no)
+            INNER JOIN public.workerrole
+            ON LOWER(public.worker.worker_role) LIKE LOWER(public.workerrole.worker_role) 
             """)
 
             rows = cursor.fetchall()
@@ -141,7 +148,8 @@ def get_worker(request):
     result = []
     for row in rows:
         temp = {'enrollment_no': row[0], 'worker_role': row[1], 'full_name': row[2],
-                'phone_no': row[3], 'dateofbirth': str(row[4]), 'bhawan': row[5]}
+                'phone_no': row[3], 'dateofbirth': str(row[4]), 'bhawan': row[5],
+                'salary': row[6], 'shift_start': str(row[7]), 'shift_end': str(row[8])}
         result.append(temp)
 
     json_data = json.dumps(result)
@@ -210,7 +218,7 @@ def get_workerrole(request):
 
     result = []
     for row in rows:
-        temp = {'worker_role': row[0], 'salary': str(row[1]),
+        temp = {'worker_role': row[0], 'salary': row[1],
                 'shift_start': str(row[2]), 'shift_end': str(row[3])}
         result.append(temp)
 
@@ -223,7 +231,7 @@ def add_workerrole(request):
         return HttpResponse(content='only post request allowed', status=status.HTTP_400_BAD_REQUEST)
 
     worker_role = request.POST.get('worker_role', None)
-    salary = float(request.POST.get('salary', None))
+    salary = request.POST.get('salary', None)
     shift_start = request.POST.get('shift_start', None)
     shift_end = request.POST.get('shift_end', None)
 
@@ -239,6 +247,11 @@ def add_workerrole(request):
 
     if row[0]:
         return HttpResponse(content='this workerrole already exists', status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        salary = float(salary)
+    except ValueError:
+        return HttpResponse(content='salary can not convert into float', status=status.HTTP_400_BAD_REQUEST)
 
     with connection.cursor() as cursor:
         cursor.execute("""
