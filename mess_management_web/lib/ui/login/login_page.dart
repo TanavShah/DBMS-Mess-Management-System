@@ -44,6 +44,7 @@ class _LoginPageState extends State<LoginPage> {
                           controller: controller1,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
+                            border: OutlineInputBorder(),
                             labelText: 'Enrollment ID',
                             hintText: 'Enrollment ID',
                           ),
@@ -62,6 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                           obscureText: true,
                           keyboardType: TextInputType.visiblePassword,
                           decoration: InputDecoration(
+                            border: OutlineInputBorder(),
                             labelText: 'Password',
                             hintText: 'Password',
                           ),
