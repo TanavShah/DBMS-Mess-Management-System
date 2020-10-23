@@ -38,7 +38,7 @@ psql -d mess
 #### GET
 ```
 type : get
-http://127.0.0.1:8000/feedback/?hostel='Rajiv Bhawan'
+http://127.0.0.1:8000/feedback/?hostel=Rajiv Bhawan
 or
 http://127.0.0.1:8000/feedback/
 return : 200 if successful
