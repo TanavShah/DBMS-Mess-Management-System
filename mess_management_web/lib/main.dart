@@ -1,12 +1,19 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mess_management_web/ui/home/home_page.dart';
-import 'ui/login/login_page.dart';
+import 'package:mess_management_web/colors.dart';
+import 'package:mess_management_web/core/services/auth_service.dart';
+import 'package:mess_management_web/service_locator.dart';
 import 'router.dart' as myRouter;
 
-void main() {
+String initRoute = 'login';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  setupLocator();
+  bool loggedIn = await locator<AuthService>().checkUserLoggedIn();
+  if (loggedIn == true) {
+    initRoute = 'home';
+  }
   runApp(MyApp());
 }
 
@@ -17,29 +24,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Mess Online',
       theme: ThemeData(
-        primarySwatch: Colors.orange,
+        primarySwatch: appPrimary,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: GoogleFonts.robotoTextTheme(),
         appBarTheme: AppBarTheme(
+          color: appOrange,
           textTheme: GoogleFonts.robotoTextTheme(),
         ),
       ),
-      home: RootWidget(),
+      initialRoute: initRoute,
       onGenerateRoute: myRouter.Router.generateRoute,
-    );
-  }
-}
-
-class RootWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    ScreenUtil.init(context,
-        designSize: Size(1920, 960), allowFontScaling: true);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Mess Management System IIT Roorkee'),
-      ),
-      body: HomePage(),
     );
   }
 }
