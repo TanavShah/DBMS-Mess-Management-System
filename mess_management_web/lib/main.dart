@@ -1,6 +1,9 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mess_management_web/ui/home/home_page.dart';
 import 'ui/login/login_page.dart';
+import 'router.dart' as myRouter;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,8 +19,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        textTheme: GoogleFonts.robotoTextTheme(),
+        appBarTheme: AppBarTheme(
+          textTheme: GoogleFonts.robotoTextTheme(),
+        ),
       ),
       home: RootWidget(),
+      onGenerateRoute: myRouter.Router.generateRoute,
     );
   }
 }
@@ -31,7 +39,7 @@ class RootWidget extends StatelessWidget {
       appBar: AppBar(
         title: Text('Mess Management System IIT Roorkee'),
       ),
-      body: LoginPage(),
+      body: HomePage(),
     );
   }
 }

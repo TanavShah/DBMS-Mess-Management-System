@@ -1,5 +1,11 @@
 import 'package:get_it/get_it.dart';
+import 'package:mess_management_web/core/services/auth_service.dart';
+
+import 'core/services/api.dart';
 
 GetIt locator = GetIt.instance;
 
-void setupLocator() {}
+void setupLocator() {
+  locator.registerLazySingleton(() => Api());
+  locator.registerLazySingleton(() => AuthService());
+}
