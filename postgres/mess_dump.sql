@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.14 (Ubuntu 10.14-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.14 (Ubuntu 10.14-0ubuntu0.18.04.1)
+-- Dumped from database version 12.4 (Ubuntu 12.4-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 12.4 (Ubuntu 12.4-0ubuntu0.20.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,9 +18,11 @@ SET row_security = off;
 
 ALTER TABLE ONLY public.worker DROP CONSTRAINT worker_worker_role_fkey;
 ALTER TABLE ONLY public.worker DROP CONSTRAINT worker_enrollment_no_fkey;
+ALTER TABLE ONLY public.userlogin DROP CONSTRAINT userlogin_enrollment_no_fkey;
 ALTER TABLE ONLY public.student DROP CONSTRAINT student_enrollment_no_fkey;
 ALTER TABLE ONLY public.feedback DROP CONSTRAINT feedback_student_id_fkey;
 ALTER TABLE ONLY public.workerrole DROP CONSTRAINT workerrole_pkey;
+ALTER TABLE ONLY public.userlogin DROP CONSTRAINT userlogin_pkey;
 ALTER TABLE ONLY public.userdata DROP CONSTRAINT userdata_pkey;
 ALTER TABLE ONLY public.title DROP CONSTRAINT title_pkey;
 ALTER TABLE ONLY public.student DROP CONSTRAINT student_pkey;
@@ -32,6 +34,7 @@ ALTER TABLE public.menu ALTER COLUMN menu_id DROP DEFAULT;
 ALTER TABLE public.feedback ALTER COLUMN id DROP DEFAULT;
 DROP TABLE public.workerrole;
 DROP TABLE public.worker;
+DROP TABLE public.userlogin;
 DROP TABLE public.userdata;
 DROP TABLE public.title;
 DROP TABLE public.student;
@@ -42,25 +45,8 @@ DROP TABLE public.feedback;
 DROP TABLE public.expense;
 DROP TABLE public.dailywastage;
 DROP EXTENSION plpgsql;
-DROP SCHEMA public;
 --
--- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
---
-
-CREATE SCHEMA public;
-
-
-ALTER SCHEMA public OWNER TO postgres;
-
---
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
---
-
-COMMENT ON SCHEMA public IS 'standard public schema';
-
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
@@ -75,7 +61,7 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
 -- Name: dailywastage; Type: TABLE; Schema: public; Owner: postgres
@@ -220,6 +206,18 @@ CREATE TABLE public.userdata (
 ALTER TABLE public.userdata OWNER TO postgres;
 
 --
+-- Name: userlogin; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.userlogin (
+    enrollment_no character varying(20) NOT NULL,
+    user_pass character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.userlogin OWNER TO postgres;
+
+--
 -- Name: worker; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -263,14 +261,14 @@ ALTER TABLE ONLY public.menu ALTER COLUMN menu_id SET DEFAULT nextval('public.me
 -- Data for Name: dailywastage; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.dailywastage VALUES ('2020-10-20 00:00:00', 100.200000000000003, 50.3400000000000034);
+INSERT INTO public.dailywastage VALUES ('2020-10-20 00:00:00', 100.2, 50.34);
 
 
 --
 -- Data for Name: expense; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.expense VALUES (36, 2020, 120.359999999999999);
+INSERT INTO public.expense VALUES (36, 2020, 120.36);
 
 
 --
@@ -309,6 +307,14 @@ INSERT INTO public.title VALUES (2, 'Lunch', '12:30:00', '14:30:00');
 
 INSERT INTO public.userdata VALUES ('18118080', 'Rajesh Kumar', '9985647291', '2000-09-18 00:00:00', 'Govind Bhawan');
 INSERT INTO public.userdata VALUES ('54541287', 'Kamlesh Pandit', '9897561245', '1988-12-12 00:00:00', 'Rajendra Bhawan');
+
+
+--
+-- Data for Name: userlogin; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.userlogin VALUES ('18118080', 'Pass_8080');
+INSERT INTO public.userlogin VALUES ('54541287', 'Pass_1287');
 
 
 --
@@ -396,6 +402,14 @@ ALTER TABLE ONLY public.userdata
 
 
 --
+-- Name: userlogin userlogin_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.userlogin
+    ADD CONSTRAINT userlogin_pkey PRIMARY KEY (enrollment_no);
+
+
+--
 -- Name: workerrole workerrole_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -417,6 +431,14 @@ ALTER TABLE ONLY public.feedback
 
 ALTER TABLE ONLY public.student
     ADD CONSTRAINT student_enrollment_no_fkey FOREIGN KEY (enrollment_no) REFERENCES public.userdata(enrollment_no) ON DELETE CASCADE;
+
+
+--
+-- Name: userlogin userlogin_enrollment_no_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.userlogin
+    ADD CONSTRAINT userlogin_enrollment_no_fkey FOREIGN KEY (enrollment_no) REFERENCES public.userdata(enrollment_no) ON DELETE CASCADE;
 
 
 --

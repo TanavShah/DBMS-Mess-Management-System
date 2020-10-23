@@ -9,6 +9,18 @@ CREATE TABLE UserData (
 
 INSERT INTO UserData (enrollment_no, full_name, phone_no, dateOfBirth, bhawan) VALUES ('18118080', 'Rajesh Kumar', '9985647291', '2000-09-18', 'Govind Bhawan'), ('54541287', 'Kamlesh Pandit', '9897561245', '1988-12-12', 'Rajendra Bhawan');
 
+CREATE TABLE UserLogin(
+        enrollment_no VARCHAR(20) NOT NULL,
+        user_pass VARCHAR(100) NOT NULL,
+        PRIMARY KEY(enrollment_no),
+        FOREIGN KEY(enrollment_no)
+            REFERENCES UserData(enrollment_no)
+            ON DELETE CASCADE
+);
+
+INSERT INTO UserLogin(enrollment_no, user_pass) VALUES ('18118080', 'Pass_8080');
+INSERT INTO UserLogin(enrollment_no, user_pass) VALUES ('54541287', 'Pass_1287');
+
 CREATE TABLE Student (
         enrollment_no VARCHAR(20) NOT NULL,
         year_no INT NOT NULL,
