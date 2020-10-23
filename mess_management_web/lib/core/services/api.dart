@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'exceptions.dart';
 
 class Api {
-  static const URL = '';
+  static const URL = 'https://www/example.com/';
 
   var client = http.Client();
 

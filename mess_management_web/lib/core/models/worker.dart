@@ -8,11 +8,11 @@ part 'worker.g.dart';
 class Worker {
   User user;
   double salary;
-  String role;
+  String workerRole;
   DateTime shiftStart;
   DateTime shiftEnd;
 
-  Worker(this.user, this.salary, this.role, this.shiftStart, this.shiftEnd);
+  Worker(this.user, this.salary, this.workerRole, this.shiftStart, this.shiftEnd);
 
   factory Worker.fromJson(Map<String, dynamic> json) => _$WorkerFromJson(json);
 
