@@ -67,6 +67,8 @@ CREATE TABLE Title (
 );
 
 INSERT INTO Title (title_id, title_name, start_time, end_time) VALUES (3,'Dinner','19:30:00','21:30:00');
+INSERT INTO Title (title_id, title_name, start_time, end_time) VALUES (1,'Breakfast','08:00:00','09:30:00');
+INSERT INTO Title (title_id, title_name, start_time, end_time) VALUES (2,'Lunch','12:30:00','14:30:00');
 
 CREATE TABLE DailyWastage (
     curr_date TIMESTAMP NOT NULL,
