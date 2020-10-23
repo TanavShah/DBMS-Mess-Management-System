@@ -45,7 +45,7 @@ def get_student(request):
 
     result = []
     for row in rows:
-        temp = {'enrollment_no': row[0], 'year_no':row[1],'branch': row[2], 'email': row[3], 'full_name': row[4],
+        temp = {'enrollment_no': row[0], 'year_no': row[1], 'branch': row[2], 'email': row[3], 'full_name': row[4],
                 'phone_no': row[5], 'dateofbirth': str(row[6]), 'bhawan': row[7]}
         result.append(temp)
 
@@ -56,28 +56,147 @@ def get_student(request):
 def add_student(request):
     if request.method != 'POST':
         return HttpResponse(status=400)
-    return None
 
+    enrollment_no = request.POST.get('enrollment_no', None)
+    full_name = request.POST.get('full_name', None)
+    phone_no = request.POST.get('phone_no', None)
+    dateOfBirth = request.POST.get('date_of_birth', None)
+    bhawan = request.POST.get('hostel', None)
+    year_no = int(request.POST.get('year_no', None))
+    branch = request.POST.get('branch', None)
+    email = request.POST.get('email', None)
 
-def update_student(request):
-    if request.method != 'POST':
-        return HttpResponse(status=400)
-    return None
+    with connection.cursor() as cursor:
+        cursor.execute("""
+        INSERT INTO public.userdata (enrollment_no, full_name, phone_no, dateOfBirth, bhawan) 
+        VALUES (%s ,LOWER(%s), %s, TO_TIMESTAMP(%s, 'YYYY-MM-DD HH24:MI:SS'), LOWER(%s)) ;
+        """, (enrollment_no, full_name, phone_no, dateOfBirth, bhawan))
+    connection.commit()
+
+    with connection.cursor() as cursor:
+        cursor.execute("""
+        INSERT INTO public.student (enrollment_no, year_no, branch, email) 
+        VALUES (%s, %s, LOWER(%s), %s) ;
+        """, (enrollment_no, year_no, branch, email))
+
+    connection.commit()
+
+    return HttpResponse(status=202)
 
 
 def get_worker(request):
     if request.method != 'GET':
         return HttpResponse(status=400)
-    return None
+
+    hostel = request.GET.get('hostel', None)
+    enrollment_no = request.GET.get('enrollment_no', None)
+
+    if hostel is not None:
+        with connection.cursor() as cursor:
+            cursor.execute("""
+            SELECT public.worker.enrollment_no ,worker_role, full_name, phone_no, dateofbirth, bhawan
+            FROM public.worker INNER JOIN public.userdata
+            ON public.worker.enrollment_no = public.userdata.enrollment_no 
+            WHERE LOWER(bhawan) LIKE LOWER(%s) ;
+            """, (hostel,))
+
+            rows = cursor.fetchall()
+
+    elif enrollment_no is not None:
+        with connection.cursor() as cursor:
+            cursor.execute("""
+            SELECT public.worker.enrollment_no , worker_role, full_name, phone_no, dateofbirth, bhawan
+            FROM public.worker INNER JOIN public.userdata
+            ON public.worker.enrollment_no = public.userdata.enrollment_no
+            WHERE public.worker.enrollment_no = %s ;
+            """, (enrollment_no,))
+
+            rows = cursor.fetchall()
+
+    else:
+        with connection.cursor() as cursor:
+            cursor.execute("""
+            SELECT public.worker.enrollment_no , worker_role, full_name, phone_no, dateofbirth, bhawan
+            FROM public.worker INNER JOIN public.userdata
+            ON public.worker.enrollment_no = public.userdata.enrollment_no
+            """)
+
+            rows = cursor.fetchall()
+
+    result = []
+    for row in rows:
+        temp = {'enrollment_no': row[0], 'worker_role': row[1], 'full_name': row[2],
+                'phone_no': row[3], 'dateofbirth': str(row[4]), 'bhawan': row[5]}
+        result.append(temp)
+
+    json_data = json.dumps(result)
+    return HttpResponse(json_data, content_type="application/json")
 
 
 def add_worker(request):
     if request.method != 'POST':
         return HttpResponse(status=400)
-    return None
+
+    enrollment_no = request.POST.get('enrollment_no', None)
+    full_name = request.POST.get('full_name', None)
+    phone_no = request.POST.get('phone_no', None)
+    dateOfBirth = request.POST.get('date_of_birth', None)
+    bhawan = request.POST.get('hostel', None)
+    worker_role = request.POST.get('worker_role', None)
+
+    with connection.cursor() as cursor:
+        cursor.execute("""
+        INSERT INTO public.userdata (enrollment_no, full_name, phone_no, dateOfBirth, bhawan) 
+        VALUES (%s ,LOWER(%s), %s, TO_TIMESTAMP(%s, 'YYYY-MM-DD HH24:MI:SS'), LOWER(%s)) ;
+        """, (enrollment_no, full_name, phone_no, dateOfBirth, bhawan))
+    connection.commit()
+
+    with connection.cursor() as cursor:
+        cursor.execute("""
+        INSERT INTO public.worker (enrollment_no, worker_role) 
+        VALUES (%s, LOWER(%s)) ;
+        """, (enrollment_no, worker_role))
+
+    connection.commit()
+
+    return HttpResponse(status=202)
 
 
-def update_worker(request):
+def get_workerrole(request):
+    if request.method != 'GET':
+        return HttpResponse(status=400)
+
+    with connection.cursor() as cursor:
+        cursor.execute("""
+        SELECT * FROM public.workerrole ;
+        """)
+        rows = cursor.fetchall()
+
+    result = []
+    for row in rows:
+        temp = {'worker_role': row[0], 'salary': str(row[1]),
+                'shift_start': str(row[2]), 'shift_end': str(row[3])}
+        result.append(temp)
+
+    json_data = json.dumps(result)
+    return HttpResponse(json_data, content_type="application/json")
+
+
+def add_workerrole(request):
     if request.method != 'POST':
         return HttpResponse(status=400)
-    return None
+
+    worker_role = request.POST.get('worker_role', None)
+    salary = float(request.POST.get('salary', None))
+    shift_start = request.POST.get('shift_start', None)
+    shift_end = request.POST.get('shift_end', None)
+
+    with connection.cursor() as cursor:
+        cursor.execute("""
+        INSERT INTO public.workerrole (worker_role, salary, shift_start, shift_end) 
+        VALUES (LOWER(%s), %s, TO_TIMESTAMP(%s, 'HH24:MI:SS'), TO_TIMESTAMP(%s, 'HH24:MI:SS')) ;
+        """, (worker_role, salary, shift_start, shift_end))
+
+    connection.commit()
+
+    return HttpResponse(status=202)

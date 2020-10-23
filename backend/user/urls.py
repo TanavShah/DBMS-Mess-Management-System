@@ -11,8 +11,8 @@ from user import views
 urlpatterns = [
     path('student/', views.get_student, name='get_student'),
     path('student/add/', views.add_student, name='add_student'),
-    path('student/update/', views.update_student, name='update_student'),
     path('worker/', views.get_worker, name='get_worker'),
     path('worker/add/', views.add_worker, name='add_worker'),
-    path('worker/update/', views.update_worker, name='update_worker'),
+    path('workerrole/', views.get_workerrole, name='get_workerrole'),
+    path('workerrole/add/', views.add_workerrole, name='add_workerrole'),
 ]
