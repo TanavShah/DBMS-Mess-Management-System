@@ -25,5 +25,5 @@ class ExpenseAdd(APIView):
                 expense.save()
             except IntegrityError:
                 return Response("Expense for this week and year already exists", status=status.HTTP_400_BAD_REQUEST)
-            return Response("Created successfully", status=status.HTTP_201_CREATED)
+            return Response("Created successfully", status=status.HTTP_200_OK)
         return Response(expense.errors, status=status.HTTP_400_BAD_REQUEST)

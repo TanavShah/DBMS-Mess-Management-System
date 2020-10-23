@@ -29,5 +29,5 @@ class MenuAdd(APIView):
         menu = MenuAddSerializer(data=data)
         if menu.is_valid():
             menu.save()
-            return Response("Menu Added successfully", status=status.HTTP_201_CREATED)
+            return Response("Menu Added successfully", status=status.HTTP_200_OK)
         return Response(menu.errors, status=status.HTTP_400_BAD_REQUEST)

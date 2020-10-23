@@ -22,6 +22,6 @@ class DailyWastageAdd(APIView):
                 wastage.save()
             except IntegrityError:
                 return Response("Wastage for this day already exists", status=status.HTTP_400_BAD_REQUEST)
-            return Response("Created successfully", status=status.HTTP_201_CREATED)
+            return Response("Created successfully", status=status.HTTP_200_OK)
         return Response(wastage.errors, status=status.HTTP_400_BAD_REQUEST)
 
