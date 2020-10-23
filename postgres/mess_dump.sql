@@ -299,6 +299,8 @@ INSERT INTO public.student VALUES ('18118080', 2018, 'Metallurgical Sciences', '
 --
 
 INSERT INTO public.title VALUES (3, 'Dinner', '19:30:00', '21:30:00');
+INSERT INTO public.title VALUES (1, 'Breakfast', '08:00:00', '09:30:00');
+INSERT INTO public.title VALUES (2, 'Lunch', '12:30:00', '14:30:00');
 
 
 --
