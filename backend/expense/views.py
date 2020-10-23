@@ -10,7 +10,10 @@ from django.db.utils import IntegrityError
 class ExpenseView(APIView):
     def post(self, request):
         data = JSONParser().parse(request)
-        weekly_expense = ExpenseSerializer.from_week_year(**data)
+        try:
+            weekly_expense = ExpenseSerializer.from_week_year(**data)
+        except TypeError:
+            return Response({})
         return Response(weekly_expense.data)
 
 class ExpenseAdd(APIView):
