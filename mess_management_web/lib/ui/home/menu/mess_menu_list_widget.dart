@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:mess_management_web/core/models/menu.dart';
 import 'package:mess_management_web/ui/home/menu/mess_menu_heading_widget.dart';
 import 'package:mess_management_web/ui/home/menu/mess_menu_item.dart';
 
 class MessMenuListWidget extends StatelessWidget {
+  final Menu menu;
+
+  const MessMenuListWidget({Key key, this.menu}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final list = List.generate(
+        menu.items.length, (i) => MessMenuItem(text: menu.items.elementAt(i)));
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        MessMenuHeadingWidget(),
-        Expanded(
-          child: ListView.builder(
-            itemBuilder: (context, i) {
-              return MessMenuItem();
-            },
-          ),
-        )
+        MessMenuHeadingWidget(id: menu.titleId),
+        ...list,
       ],
     );
   }

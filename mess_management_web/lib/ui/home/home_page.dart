@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mess_management_web/core/services/auth_service.dart';
 import 'package:mess_management_web/core/viewmodels/home_model.dart';
+import 'package:mess_management_web/core/viewmodels/menu_model.dart';
 import 'package:mess_management_web/styles.dart';
 import 'package:mess_management_web/ui/home/feedback/feedback_page.dart';
 import 'package:mess_management_web/ui/home/menu/mess_menu_page.dart';
@@ -19,8 +20,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => HomeModel(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => HomeModel()),
+        ChangeNotifierProvider(create: (_) => MenuModel()),
+      ],
       child: Scaffold(
         appBar: AppBar(
           title: Text('Mess Management System'),
