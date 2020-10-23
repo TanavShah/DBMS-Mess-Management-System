@@ -52,7 +52,7 @@ def get_student(request):
         result.append(temp)
 
     json_data = json.dumps(result)
-    return HttpResponse(json_data, content_type="application/json", status= status.HTTP_200_OK)
+    return HttpResponse(json_data, content_type="application/json", status=status.HTTP_200_OK)
 
 
 def add_student(request):
@@ -100,7 +100,7 @@ def add_student(request):
 
     connection.commit()
 
-    return HttpResponse(status= status.HTTP_200_OK)
+    return HttpResponse(status=status.HTTP_200_OK)
 
 
 def get_worker(request):
@@ -113,9 +113,12 @@ def get_worker(request):
     if hostel is not None:
         with connection.cursor() as cursor:
             cursor.execute("""
-            SELECT public.worker.enrollment_no ,worker_role, full_name, phone_no, dateofbirth, bhawan
-            FROM public.worker INNER JOIN public.userdata
-            ON public.worker.enrollment_no = public.userdata.enrollment_no 
+            SELECT public.worker.enrollment_no , public.worker.worker_role, full_name, phone_no, dateofbirth, 
+            bhawan,salary, shift_start, shift_end 
+            FROM (public.worker INNER JOIN public.userdata 
+            ON public.worker.enrollment_no = public.userdata.enrollment_no) 
+            INNER JOIN public.workerrole 
+            ON LOWER(public.worker.worker_role) LIKE LOWER(public.workerrole.worker_role) 
             WHERE LOWER(bhawan) LIKE LOWER(%s) ;
             """, (hostel,))
 
@@ -124,9 +127,12 @@ def get_worker(request):
     elif enrollment_no is not None:
         with connection.cursor() as cursor:
             cursor.execute("""
-            SELECT public.worker.enrollment_no , worker_role, full_name, phone_no, dateofbirth, bhawan, salary, shift_start, shift_end
-            FROM public.worker INNER JOIN public.userdata
-            ON public.worker.enrollment_no = public.userdata.enrollment_no
+            SELECT public.worker.enrollment_no , public.worker.worker_role, full_name, phone_no, dateofbirth, 
+            bhawan,salary, shift_start, shift_end 
+            FROM (public.worker INNER JOIN public.userdata
+            ON public.worker.enrollment_no = public.userdata.enrollment_no)
+            INNER JOIN public.workerrole
+            ON LOWER(public.worker.worker_role) LIKE LOWER(public.workerrole.worker_role) 
             WHERE public.worker.enrollment_no = %s ;
             """, (enrollment_no,))
 
@@ -153,7 +159,7 @@ def get_worker(request):
         result.append(temp)
 
     json_data = json.dumps(result)
-    return HttpResponse(json_data, content_type="application/json", status= status.HTTP_200_OK)
+    return HttpResponse(json_data, content_type="application/json", status=status.HTTP_200_OK)
 
 
 def add_worker(request):
@@ -203,18 +209,36 @@ def add_worker(request):
 
     connection.commit()
 
-    return HttpResponse(status= status.HTTP_200_OK)
+    return HttpResponse(status=status.HTTP_200_OK)
 
 
 def get_workerrole(request):
     if request.method != 'GET':
         return HttpResponse(content='only get request allowed', status=status.HTTP_400_BAD_REQUEST)
 
-    with connection.cursor() as cursor:
-        cursor.execute("""
-        SELECT * FROM public.workerrole ;
-        """)
-        rows = cursor.fetchall()
+    worker_role = request.GET.get('worker_role', None)
+    if worker_role is None:
+        with connection.cursor() as cursor:
+            cursor.execute("""
+            SELECT * FROM public.workerrole ;
+            """)
+            rows = cursor.fetchall()
+    else:
+        with connection.cursor() as cursor:
+            cursor.execute("""
+            SELECT EXISTS (SELECT * FROM public.workerrole WHERE LOWER(worker_role) LIKE LOWER(%s));
+            """, (worker_role,))
+            row = cursor.fetchone()
+
+        if not row[0]:
+            return HttpResponse(content='this workerrole does not exists', status=status.HTTP_400_BAD_REQUEST)
+
+        with connection.cursor() as cursor:
+            cursor.execute("""
+            SELECT * FROM public.workerrole 
+            WHERE LOWER(worker_role) LIKE LOWER (%s);
+            """, (worker_role,))
+            rows = cursor.fetchall()
 
     result = []
     for row in rows:
@@ -223,7 +247,7 @@ def get_workerrole(request):
         result.append(temp)
 
     json_data = json.dumps(result)
-    return HttpResponse(json_data, content_type="application/json", status= status.HTTP_200_OK)
+    return HttpResponse(json_data, content_type="application/json", status=status.HTTP_200_OK)
 
 
 def add_workerrole(request):
@@ -261,4 +285,68 @@ def add_workerrole(request):
 
     connection.commit()
 
-    return HttpResponse(status= status.HTTP_200_OK)
+    return HttpResponse(status=status.HTTP_200_OK)
+
+
+def get_login_info(request):
+    enrollment_no = request.GET.get('enrollment_no', None)
+    if enrollment_no is None:
+        return HttpResponse(content="all data not provided : enrollment_no", status=status.HTTP_400_BAD_REQUEST)
+
+    exists = False
+    _type = None
+    worker = None
+    student = None
+
+    with connection.cursor() as cursor:
+        cursor.execute("""
+        SELECT EXISTS( SELECT * FROM public.student WHERE enrollment_no = %s);
+        """, (enrollment_no,))
+        row = cursor.fetchone()
+
+    if row[0]:
+        exists = True
+        _type = 'student'
+        with connection.cursor() as cursor:
+            cursor.execute("""
+            SELECT public.student.enrollment_no , year_no, branch, email, full_name, phone_no, dateofbirth, bhawan
+            FROM public.student INNER JOIN public.userdata
+            ON public.student.enrollment_no = public.userdata.enrollment_no
+            WHERE public.student.enrollment_no = %s ;
+            """, (enrollment_no,))
+
+            data = cursor.fetchone()
+        student = {'enrollment_no': data[0], 'year_no': data[1], 'branch': data[2], 'email': data[3],
+                   'full_name': data[4],
+                   'phone_no': data[5], 'dateofbirth': str(data[6]), 'bhawan': data[7]}
+
+    with connection.cursor() as cursor:
+        cursor.execute("""
+        SELECT EXISTS( SELECT * FROM public.worker WHERE enrollment_no = %s);
+        """, (enrollment_no,))
+        row = cursor.fetchone()
+
+    if row[0]:
+        exists = True
+        _type = 'worker'
+        with connection.cursor() as cursor:
+            cursor.execute("""
+            SELECT public.worker.enrollment_no , public.worker.worker_role, full_name, phone_no, dateofbirth, 
+            bhawan,salary, shift_start, shift_end 
+            FROM (public.worker INNER JOIN public.userdata
+            ON public.worker.enrollment_no = public.userdata.enrollment_no)
+            INNER JOIN public.workerrole
+            ON LOWER(public.worker.worker_role) LIKE LOWER(public.workerrole.worker_role) 
+            WHERE public.worker.enrollment_no = %s ;
+            """, (enrollment_no,))
+
+            data = cursor.fetchone()
+
+        worker = {'enrollment_no': data[0], 'worker_role': data[1], 'full_name': data[2],
+                  'phone_no': data[3], 'dateofbirth': str(data[4]), 'bhawan': data[5],
+                  'salary': data[6], 'shift_start': str(data[7]), 'shift_end': str(data[8])}
+
+    result = {'exists': exists, 'type': _type, 'student': student, 'worker': worker}
+
+    json_data = json.dumps(result)
+    return HttpResponse(json_data, content_type="application/json", status=status.HTTP_200_OK)
