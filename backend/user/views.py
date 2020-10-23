@@ -52,7 +52,7 @@ def get_student(request):
         result.append(temp)
 
     json_data = json.dumps(result)
-    return HttpResponse(json_data, content_type="application/json")
+    return HttpResponse(json_data, content_type="application/json", status= status.HTTP_200_OK)
 
 
 def add_student(request):
@@ -100,7 +100,7 @@ def add_student(request):
 
     connection.commit()
 
-    return HttpResponse(status=202)
+    return HttpResponse(status= status.HTTP_200_OK)
 
 
 def get_worker(request):
@@ -153,7 +153,7 @@ def get_worker(request):
         result.append(temp)
 
     json_data = json.dumps(result)
-    return HttpResponse(json_data, content_type="application/json")
+    return HttpResponse(json_data, content_type="application/json", status= status.HTTP_200_OK)
 
 
 def add_worker(request):
@@ -203,7 +203,7 @@ def add_worker(request):
 
     connection.commit()
 
-    return HttpResponse(status=202)
+    return HttpResponse(status= status.HTTP_200_OK)
 
 
 def get_workerrole(request):
@@ -223,7 +223,7 @@ def get_workerrole(request):
         result.append(temp)
 
     json_data = json.dumps(result)
-    return HttpResponse(json_data, content_type="application/json")
+    return HttpResponse(json_data, content_type="application/json", status= status.HTTP_200_OK)
 
 
 def add_workerrole(request):
@@ -261,4 +261,4 @@ def add_workerrole(request):
 
     connection.commit()
 
-    return HttpResponse(status=202)
+    return HttpResponse(status= status.HTTP_200_OK)

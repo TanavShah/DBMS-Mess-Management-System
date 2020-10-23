@@ -45,7 +45,7 @@ http://127.0.0.1:8000/feedback/add
 type : post
 body :
 student_id : string,title : string, feedback_description : string
-return : 202 if success
+return : 200 if success
 ```
 #### DEL
 ```
@@ -73,7 +73,7 @@ type : post
 http://127.0.0.1:8000/user/student/add
 body :
 enrollment_no,full_name,phone_no,date_of_birth,hostel,year_no,branch,email : all strings
-return 202  if success
+return 200  if success
 ```
 
 ### WORKERROLE
@@ -89,7 +89,7 @@ type : post
 http://127.0.0.1:8000/user/workerrole/add
 body :
 worker_role,salary,shift_start,shift_end : all strings :: example : 'sweeper','5000','08:00:00','12:20:00' 
-return 202  if success
+return 200  if success
 ```
 
 ### WORKER
@@ -109,5 +109,5 @@ type : post
 http://127.0.0.1:8000/user/worker/add
 body :
 enrollment_no,full_name,phone_no,date_of_birth,hostel,worker_role : all strings
-return 202  if success
+return 200  if success
 ```

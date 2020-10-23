@@ -35,7 +35,7 @@ def get_feedback(request):
         result.append(temp)
 
     json_data = json.dumps(result)
-    return HttpResponse(json_data, content_type="application/json")
+    return HttpResponse(json_data, content_type="application/json", status= status.HTTP_200_OK)
 
 
 def add_feedback(request):
@@ -69,7 +69,7 @@ def add_feedback(request):
         """, (student_id, title, feedback_description))
     connection.commit()
 
-    return HttpResponse(status=202)
+    return HttpResponse(status= status.HTTP_200_OK)
 
 
 def del_feedback(request):
@@ -91,4 +91,4 @@ def del_feedback(request):
         """, (_id,))
     connection.commit()
 
-    return HttpResponse(status=200)
+    return HttpResponse(status= status.HTTP_200_OK)
