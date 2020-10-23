@@ -8,27 +8,23 @@ sudo apt-get install postgresql
 ```
 
 ```
-sudo -i -u postgres
-```
-
-```
 git clone https://github.com/TanavShah/DBMS-Mess-Management-System.git
 ```
 
 ```
-cd DBMS-Mess-Management-System
+cd DBMS-Mess-Management-System/postgres
 ```
 
 ```
-createdb mess
+sudo -u postgres createdb mess
 ```
 
 ```
-psql -d mess < mess_dump.sql
+sudo -u postgres psql -d mess < mess_dump.sql
 ```
 
 ```
-psql -d mess
+sudo -u postgres psql -d mess
 ```
 
 
