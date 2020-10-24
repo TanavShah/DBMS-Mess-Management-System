@@ -198,7 +198,7 @@ CREATE TABLE public.userdata (
     enrollment_no character varying(20) NOT NULL,
     full_name character varying(100) NOT NULL,
     phone_no character varying(10) NOT NULL,
-    dateofbirth timestamp without time zone NOT NULL,
+    date_of_birth timestamp without time zone NOT NULL,
     bhawan character varying(50) NOT NULL
 );
 
@@ -275,7 +275,7 @@ INSERT INTO public.expense VALUES (36, 2020, 120.36);
 -- Data for Name: feedback; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.feedback VALUES (1, '2020-10-20 20:00:00', '18118080', 'Review', 'Good Overall');
+INSERT INTO public.feedback VALUES (3, '2020-10-20 20:00:00', '18118080', 'Review', 'Good Overall');
 
 
 --
@@ -335,7 +335,7 @@ INSERT INTO public.workerrole VALUES ('Cleaner', 12576.25, '07:30:00', '16:00:00
 -- Name: feedback_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.feedback_id_seq', 1, true);
+SELECT pg_catalog.setval('public.feedback_id_seq', 3, true);
 
 
 --
