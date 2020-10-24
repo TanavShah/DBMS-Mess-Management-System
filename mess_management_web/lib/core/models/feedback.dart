@@ -3,14 +3,14 @@ part 'feedback.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class FeedBack {
-  String enrollmentId;
+  String enrollmentNo;
   String title;
   String feedbackDescription;
 
-  FeedBack(this.enrollmentId, this.title, this.feedbackDescription);
+  FeedBack(this.enrollmentNo, this.title, this.feedbackDescription);
 
   factory FeedBack.fromJson(Map<String, dynamic> json) =>
-      _$FeedbackFromJson(json);
+      _$FeedBackFromJson(json);
 
-  Map<String, dynamic> toJson() => _$FeedbackToJson(this);
+  Map<String, dynamic> toJson() => _$FeedBackToJson(this);
 }

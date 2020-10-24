@@ -54,7 +54,7 @@ class FeedbackListItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                '${feedback.enrollmentId}',
+                '${feedback.enrollmentNo}',
                 style: b90_14,
               ),
             ),

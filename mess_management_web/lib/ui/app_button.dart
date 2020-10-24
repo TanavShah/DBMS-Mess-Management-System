@@ -12,7 +12,7 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlatButton(
       color: appOrange,
-      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       onPressed: onPressed,
       child: Text(
         text.toUpperCase(),

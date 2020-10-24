@@ -8,7 +8,7 @@ part of 'feedback_list.dart';
 
 FeedbackList _$FeedbackListFromJson(Map<String, dynamic> json) {
   return FeedbackList(
-    (json as List)
+    (json['items'] as List)
         ?.map((e) =>
             e == null ? null : FeedBack.fromJson(e as Map<String, dynamic>))
         ?.toList(),

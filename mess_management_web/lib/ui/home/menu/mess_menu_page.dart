@@ -46,7 +46,8 @@ class MessMenuPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  model.currentMenu != null
+                  model.currentMenu != null &&
+                          model.currentMenu.menus.length != 0
                       ? Flexible(
                           child: SingleChildScrollView(
                             child: Row(

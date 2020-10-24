@@ -11,7 +11,7 @@ Student _$StudentFromJson(Map<String, dynamic> json) {
     json['user'] == null
         ? null
         : User.fromJson(json['user'] as Map<String, dynamic>),
-    json['year'] as int,
+    json['year_no'] as int,
     json['branch'] as String,
     json['email'] as String,
   );
@@ -19,7 +19,7 @@ Student _$StudentFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$StudentToJson(Student instance) => <String, dynamic>{
       'user': instance.user?.toJson(),
-      'year': instance.year,
+      'year_no': instance.yearNo,
       'branch': instance.branch,
       'email': instance.email,
     };

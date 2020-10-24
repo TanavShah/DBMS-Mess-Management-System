@@ -7,11 +7,11 @@ part 'student.g.dart';
 @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class Student {
   User user;
-  int year;
+  int yearNo;
   String branch;
   String email;
 
-  Student(this.user, this.year, this.branch, this.email);
+  Student(this.user, this.yearNo, this.branch, this.email);
 
   factory Student.fromJson(Map<String, dynamic> json) =>
       _$StudentFromJson(json);

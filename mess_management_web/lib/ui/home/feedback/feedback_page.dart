@@ -4,9 +4,18 @@ import 'package:mess_management_web/styles.dart';
 import 'package:mess_management_web/ui/app_button.dart';
 import 'package:provider/provider.dart';
 
-class FeedBackPage extends StatelessWidget {
+class FeedBackPage extends StatefulWidget {
+  @override
+  _FeedBackPageState createState() => _FeedBackPageState();
+}
+
+class _FeedBackPageState extends State<FeedBackPage> {
+  bool submitted = false;
+
   final controller1 = TextEditingController();
+
   final controller2 = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -78,10 +87,24 @@ class FeedBackPage extends StatelessWidget {
                               if (_formKey.currentState.validate()) {
                                 bool added = await model.submitFeedback(
                                     controller1.text, controller2.text);
-                                if (added == true) {}
+                                if (added == true) {
+                                  setState(() {
+                                    submitted = true;
+                                  });
+                                  controller2.clear();
+                                  controller1.clear();
+                                } else {}
                               }
                             },
                           ),
+                    if (submitted)
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Feedback Submitted!',
+                          style: b90_14.copyWith(color: Colors.green),
+                        ),
+                      ),
                   ],
                 ),
               ),

@@ -27,12 +27,13 @@ class Api {
     print(body);
     try {
       http.Response response = await http.post(
-        URL + endpoint,
+        URL + endpoint + '/',
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: body,
       );
+      print(response.body);
       responseJson = await _returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet connection');
@@ -43,8 +44,10 @@ class Api {
   dynamic _returnResponse(http.Response response) async {
     switch (response.statusCode) {
       case 200:
-        var responseJson = json.decode(response.body.toString());
-        print(responseJson);
+        dynamic responseJson = {};
+        if (response.body.isNotEmpty)
+          responseJson = json.decode(response.body.toString());
+        print("RESPONSE JSON: $responseJson");
         return responseJson;
       case 400:
         throw BadRequestException(response.body.toString());

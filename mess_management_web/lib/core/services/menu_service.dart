@@ -12,8 +12,9 @@ class MenuService {
 //  Map<DateTime, MenuResponse> _menuDB;
 
   Future<MenuResponse> getMenuResponse(DateTime menuDate) async {
-    var response =
-        await _api.post('menu', jsonEncode({"menu_date": menuDate.toString()}));
+    var response = await _api.post('menu',
+        jsonEncode({"menu_date": menuDate.toIso8601String().substring(0, 23)}));
+
     if (response != null) {
       var list = <Menu>[];
       if (response is List) {
