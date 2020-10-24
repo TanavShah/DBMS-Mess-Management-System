@@ -198,7 +198,7 @@ CREATE TABLE public.userdata (
     enrollment_no character varying(20) NOT NULL,
     full_name character varying(100) NOT NULL,
     phone_no character varying(10) NOT NULL,
-    dateofbirth timestamp without time zone NOT NULL,
+    date_of_birth timestamp without time zone NOT NULL,
     bhawan character varying(50) NOT NULL
 );
 
@@ -275,7 +275,6 @@ INSERT INTO public.expense VALUES (36, 2020, 120.36);
 -- Data for Name: feedback; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.feedback VALUES (1, '2020-10-20 20:00:00', '18118080', 'Review', 'Good Overall');
 
 
 --
@@ -289,7 +288,6 @@ INSERT INTO public.menu VALUES (1, '2016-06-22 00:00:00', 1, 'Food');
 -- Data for Name: student; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.student VALUES ('18118080', 2018, 'Metallurgical Sciences', 'rajeshk@gmail.com');
 
 
 --
@@ -313,15 +311,12 @@ INSERT INTO public.userdata VALUES ('54541287', 'Kamlesh Pandit', '9897561245', 
 -- Data for Name: userlogin; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.userlogin VALUES ('18118080', 'Pass_8080');
-INSERT INTO public.userlogin VALUES ('54541287', 'Pass_1287');
 
 
 --
 -- Data for Name: worker; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.worker VALUES ('54541287', 'Cleaner');
 
 
 --

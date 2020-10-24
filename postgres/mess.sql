@@ -2,12 +2,12 @@ CREATE TABLE UserData (
         enrollment_no VARCHAR(20) NOT NULL,
         full_name VARCHAR(100) NOT NULL,
         phone_no VARCHAR(10) NOT NULL,
-        dateOfBirth TIMESTAMP NOT NULL,
+        date_of_birth TIMESTAMP NOT NULL,
         bhawan VARCHAR(50) NOT NULL,
         PRIMARY KEY (enrollment_no)
 );
 
-INSERT INTO UserData (enrollment_no, full_name, phone_no, dateOfBirth, bhawan) VALUES ('18118080', 'Rajesh Kumar', '9985647291', '2000-09-18', 'Govind Bhawan'), ('54541287', 'Kamlesh Pandit', '9897561245', '1988-12-12', 'Rajendra Bhawan');
+INSERT INTO UserData (enrollment_no, full_name, phone_no, date_of_birth, bhawan) VALUES ('18118080', 'Rajesh Kumar', '9985647291', '2000-09-18', 'Govind Bhawan'), ('54541287', 'Kamlesh Pandit', '9897561245', '1988-12-12', 'Rajendra Bhawan');
 
 CREATE TABLE UserLogin(
         enrollment_no VARCHAR(20) NOT NULL,
