@@ -3,10 +3,12 @@ import 'package:mess_management_web/core/services/auth_service.dart';
 import 'package:mess_management_web/core/viewmodels/feedback_model.dart';
 import 'package:mess_management_web/core/viewmodels/home_model.dart';
 import 'package:mess_management_web/core/viewmodels/menu_model.dart';
+import 'package:mess_management_web/core/viewmodels/view_data_model.dart';
 import 'package:mess_management_web/styles.dart';
 import 'package:mess_management_web/ui/home/feedback/feedback_page.dart';
 import 'package:mess_management_web/ui/home/feedback/view_feedbacks.dart';
 import 'package:mess_management_web/ui/home/menu/mess_menu_page.dart';
+import 'package:mess_management_web/ui/home/mess_members/view_list_page.dart';
 import 'package:mess_management_web/ui/home/profile/profile_page.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +29,7 @@ class _HomePageState extends State<HomePage> {
         ChangeNotifierProvider(create: (_) => HomeModel()),
         ChangeNotifierProvider(create: (_) => MenuModel()),
         ChangeNotifierProvider(create: (_) => FeedBackModel()),
+        ChangeNotifierProvider(create: (_) => ViewDataModel())
       ],
       child: Scaffold(
         appBar: AppBar(
@@ -52,6 +55,10 @@ class _HomePageState extends State<HomePage> {
         return FeedBackPage();
       case 3:
         return ViewFeedbacks();
+      case 4:
+        return ViewListPage(isStudent: true);
+      case 5:
+        return ViewListPage(isStudent: false);
     }
     return MessMenuPage();
   }
@@ -77,7 +84,7 @@ class NavDrawer extends StatelessWidget {
             NavDrawerItem(
               title: 'Feedback',
               index: 2,
-            )
+            ),
           ],
           if (locator<AuthService>().isWorker) ...[
             NavDrawerItem(
@@ -101,6 +108,17 @@ class NavDrawer extends StatelessWidget {
               index: 5,
             ),
           ],
+          ListTile(
+            onTap: () async {
+              locator<AuthService>().logout();
+              Navigator.pushNamedAndRemoveUntil(
+                  context, 'login', (route) => false);
+            },
+            title: Text(
+              'LOG OUT',
+              style: b80_14_600,
+            ),
+          ),
         ],
       ),
     );

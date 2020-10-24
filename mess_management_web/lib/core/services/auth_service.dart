@@ -72,7 +72,7 @@ class AuthService {
     );
   }
 
-  void logout() async {
+  Future<void> logout() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.clear();
   }
