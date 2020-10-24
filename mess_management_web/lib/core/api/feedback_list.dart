@@ -4,7 +4,7 @@ part 'feedback_list.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class FeedbackList {
-  List<Feedback> items;
+  List<FeedBack> items;
 
   FeedbackList(this.items);
 

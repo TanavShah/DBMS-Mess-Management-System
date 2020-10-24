@@ -5,6 +5,7 @@ import 'package:mess_management_web/core/viewmodels/home_model.dart';
 import 'package:mess_management_web/core/viewmodels/menu_model.dart';
 import 'package:mess_management_web/styles.dart';
 import 'package:mess_management_web/ui/home/feedback/feedback_page.dart';
+import 'package:mess_management_web/ui/home/feedback/view_feedbacks.dart';
 import 'package:mess_management_web/ui/home/menu/mess_menu_page.dart';
 import 'package:mess_management_web/ui/home/profile/profile_page.dart';
 import 'package:provider/provider.dart';
@@ -49,6 +50,8 @@ class _HomePageState extends State<HomePage> {
         return ProfilePage();
       case 2:
         return FeedBackPage();
+      case 3:
+        return ViewFeedbacks();
     }
     return MessMenuPage();
   }
@@ -90,8 +93,12 @@ class NavDrawer extends StatelessWidget {
               index: 3,
             ),
             NavDrawerItem(
-              title: 'View Mess data',
+              title: 'View Students',
               index: 4,
+            ),
+            NavDrawerItem(
+              title: 'View Workers',
+              index: 5,
             ),
           ],
         ],
@@ -122,7 +129,7 @@ class NavDrawerHeader extends StatelessWidget {
                 height: 4,
               ),
               Text(
-                '${locator<AuthService>().user.enrollment}',
+                '${locator<AuthService>().user.enrollmentNo}',
                 style: b60_14,
               ),
             ],

@@ -9,7 +9,7 @@ import 'package:mess_management_web/service_locator.dart';
 class FeedbackService {
   final _api = locator<Api>();
 
-  Future<bool> submitFeedback(Feedback feedback) async {
+  Future<bool> submitFeedback(FeedBack feedback) async {
     var response = _api.post(
       'feedback/add',
       jsonEncode(feedback.toJson()),
@@ -23,8 +23,14 @@ class FeedbackService {
 
   Future<FeedbackList> getFeedBacks() async {
     var response = await _api.get('feedback');
-    var data = FeedbackList.fromJson(response);
-    print(data);
+    print(response[0]);
+    var items = <FeedBack>[];
+    if (response is List) {
+      for (int i = 0; i < response.length; i++) {
+        items.add(FeedBack.fromJson(response[i]));
+      }
+    }
+    var data = FeedbackList(items);
     return data;
   }
 }

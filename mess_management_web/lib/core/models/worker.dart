@@ -18,4 +18,7 @@ class Worker {
   factory Worker.fromJson(Map<String, dynamic> json) => _$WorkerFromJson(json);
 
   Map<String, dynamic> toJson() => _$WorkerToJson(this);
+
+  factory Worker.dummy() =>
+      Worker(User.dummy(), 1000, 'jobber', DateTime.now(), DateTime.now());
 }

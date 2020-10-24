@@ -58,7 +58,7 @@ class ProfilePage extends StatelessWidget {
             SizedBox(
               height: 8,
             ),
-            Text('${auth.user.enrollment}', style: b60_14),
+            Text('${auth.user.enrollmentNo}', style: b60_14),
             SizedBox(
               height: 8,
             ),

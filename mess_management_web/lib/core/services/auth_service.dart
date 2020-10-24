@@ -12,16 +12,16 @@ import 'api.dart';
 
 class AuthService {
   Api _api = locator<Api>();
-//
+////
 //  UserType _userType;
 //  Student _student;
 //  Worker _worker;
 //  User _user;
 
-  // dummy
-  UserType _userType = UserType.student;
+//   dummy
+  UserType _userType = UserType.worker;
   Student _student = Student.dummy();
-  Worker _worker;
+  Worker _worker = Worker.dummy();
   User _user = User.dummy();
 
   UserType get userType => _userType;
@@ -32,7 +32,7 @@ class AuthService {
   bool get isStudent => userType == UserType.student;
 
   Future<bool> login(String enrollmentId, String password) async {
-    var response = await _api.get('');
+    var response = await _api.get('user/login?enrollment_no=$enrollmentId');
     final data = LoginResponse.fromJson(response);
     if (data.exists == true) {
       setLocalFields(data);
