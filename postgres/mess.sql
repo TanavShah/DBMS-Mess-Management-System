@@ -103,14 +103,14 @@ INSERT INTO Expense (week_number, year_number, amount) VALUES (36,2020,120.36);
 CREATE TABLE Feedback (
     id SERIAL NOT NULL,
     date_time TIMESTAMP NOT NULL,
-    student_id VARCHAR(20) NOT NULL,
+    enrollment_no VARCHAR(20) NOT NULL,
     title VARCHAR (100) NOT NULL,
     feedback_description VARCHAR (1000) NOT NULL,
     PRIMARY KEY (id),
     -- CONSTRAINT fk_student_id
-    FOREIGN KEY (student_id) 
+    FOREIGN KEY (enrollment_no) 
         REFERENCES Student(enrollment_no)
         ON DELETE CASCADE
 );
 
-INSERT INTO Feedback (date_time, student_id, title, feedback_description) VALUES ('2020-10-20 20:00:00', '18118080', 'Review', 'Good Overall');
+INSERT INTO Feedback (date_time, enrollment_no, title, feedback_description) VALUES ('2020-10-20 20:00:00', '18118080', 'Review', 'Good Overall');
