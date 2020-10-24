@@ -275,6 +275,7 @@ INSERT INTO public.expense VALUES (36, 2020, 120.36);
 -- Data for Name: feedback; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.feedback VALUES (3, '2020-10-20 20:00:00', '18118080', 'Review', 'Good Overall');
 
 
 --
@@ -288,6 +289,7 @@ INSERT INTO public.menu VALUES (1, '2016-06-22 00:00:00', 1, 'Food');
 -- Data for Name: student; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.student VALUES ('18118080', 2018, 'Metallurgical Sciences', 'rajeshk@gmail.com');
 
 
 --
@@ -311,12 +313,15 @@ INSERT INTO public.userdata VALUES ('54541287', 'Kamlesh Pandit', '9897561245', 
 -- Data for Name: userlogin; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.userlogin VALUES ('18118080', 'Pass_8080');
+INSERT INTO public.userlogin VALUES ('54541287', 'Pass_1287');
 
 
 --
 -- Data for Name: worker; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.worker VALUES ('54541287', 'Cleaner');
 
 
 --
@@ -330,7 +335,7 @@ INSERT INTO public.workerrole VALUES ('Cleaner', 12576.25, '07:30:00', '16:00:00
 -- Name: feedback_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.feedback_id_seq', 1, true);
+SELECT pg_catalog.setval('public.feedback_id_seq', 3, true);
 
 
 --
