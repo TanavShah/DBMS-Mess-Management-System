@@ -9,8 +9,8 @@ class Worker {
   User user;
   double salary;
   String workerRole;
-  DateTime shiftStart;
-  DateTime shiftEnd;
+  String shiftStart;
+  String shiftEnd;
 
   Worker(
       this.user, this.salary, this.workerRole, this.shiftStart, this.shiftEnd);
@@ -19,6 +19,5 @@ class Worker {
 
   Map<String, dynamic> toJson() => _$WorkerToJson(this);
 
-  factory Worker.dummy() =>
-      Worker(User.dummy(), 1000, 'jobber', DateTime.now(), DateTime.now());
+  factory Worker.dummy() => Worker(User.dummy(), 1000, 'jobber', "14", "14");
 }

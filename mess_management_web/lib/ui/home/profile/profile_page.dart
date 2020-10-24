@@ -21,8 +21,7 @@ class ProfilePage extends StatelessWidget {
       ));
       list.add(ProfileRow(
         item1: 'Shift',
-        item2:
-            '${Jiffy(auth.worker.shiftStart).Hm} to ${Jiffy(auth.worker.shiftEnd).Hm}',
+        item2: '${auth.worker.shiftStart} to ${auth.worker.shiftEnd}',
       ));
     } else {
       list.add(ProfileRow(

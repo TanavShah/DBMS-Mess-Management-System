@@ -13,12 +13,8 @@ Worker _$WorkerFromJson(Map<String, dynamic> json) {
         : User.fromJson(json['user'] as Map<String, dynamic>),
     (json['salary'] as num)?.toDouble(),
     json['worker_role'] as String,
-    json['shift_start'] == null
-        ? null
-        : DateTime.parse(json['shift_start'] as String),
-    json['shift_end'] == null
-        ? null
-        : DateTime.parse(json['shift_end'] as String),
+    json['shift_start'] as String,
+    json['shift_end'] as String,
   );
 }
 
@@ -26,6 +22,6 @@ Map<String, dynamic> _$WorkerToJson(Worker instance) => <String, dynamic>{
       'user': instance.user?.toJson(),
       'salary': instance.salary,
       'worker_role': instance.workerRole,
-      'shift_start': instance.shiftStart?.toIso8601String(),
-      'shift_end': instance.shiftEnd?.toIso8601String(),
+      'shift_start': instance.shiftStart,
+      'shift_end': instance.shiftEnd,
     };
