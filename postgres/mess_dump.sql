@@ -96,7 +96,7 @@ ALTER TABLE public.expense OWNER TO postgres;
 CREATE TABLE public.feedback (
     id integer NOT NULL,
     date_time timestamp without time zone NOT NULL,
-    student_id character varying(20) NOT NULL,
+    enrollment_no character varying(20) NOT NULL,
     title character varying(100) NOT NULL,
     feedback_description character varying(1000) NOT NULL
 );
@@ -422,7 +422,7 @@ ALTER TABLE ONLY public.workerrole
 --
 
 ALTER TABLE ONLY public.feedback
-    ADD CONSTRAINT feedback_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.student(enrollment_no) ON DELETE CASCADE;
+    ADD CONSTRAINT feedback_student_id_fkey FOREIGN KEY (enrollment_no) REFERENCES public.student(enrollment_no) ON DELETE CASCADE;
 
 
 --
