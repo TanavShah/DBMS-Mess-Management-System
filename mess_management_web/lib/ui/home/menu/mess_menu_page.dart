@@ -33,7 +33,7 @@ class MessMenuPage extends StatelessWidget {
                           onPressed: () async {
                             final selected = await showDatePicker(
                               context: context,
-                              initialDate: DateTime.now(),
+                              initialDate: model.selectedDate,
                               firstDate: DateTime.utc(2020, 10, 1),
                               lastDate: DateTime.now(),
                             );

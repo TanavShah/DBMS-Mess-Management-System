@@ -8,7 +8,8 @@ class MenuModel extends BaseModel {
   final _menuService = locator<MenuService>();
 
   MenuModel() {
-    _selectedDate = DateTime.now();
+    final now = DateTime.now();
+    _selectedDate = DateTime.utc(now.year, now.month, now.day);
     fetchMenu(_selectedDate);
   }
 
@@ -27,10 +28,12 @@ class MenuModel extends BaseModel {
   set selectedDate(DateTime value) {
     _selectedDate = value;
     notifyListeners();
+    fetchMenu(_selectedDate);
   }
 
   Future<MenuResponse> fetchMenu(DateTime menuDate) async {
     var menu = await _menuService.getMenuResponse(menuDate);
+    print('menu: $menu');
     currentMenu = menu;
     notifyListeners();
     return menu;

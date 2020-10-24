@@ -15,7 +15,7 @@ FeedBack _$FeedbackFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$FeedbackToJson(FeedBack instance) => <String, dynamic>{
-      'student_id': instance.studentId,
+      'student_id': instance.enrollmentId,
       'title': instance.title,
       'feedback_description': instance.feedbackDescription,
     };
