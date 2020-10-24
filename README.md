@@ -12,6 +12,14 @@ git clone https://github.com/TanavShah/DBMS-Mess-Management-System.git
 ```
 
 ```
+git submodule init
+```
+
+```
+git submodule update
+```
+
+```
 cd DBMS-Mess-Management-System/postgres
 ```
 
@@ -27,6 +35,13 @@ sudo -u postgres psql -d mess < mess_dump.sql
 sudo -u postgres psql -d mess
 ```
 
+While working, if the submodule main has updated, run
+
+```
+git submodule update --remote
+```
+
+And then commit the required changed to the submodule folder and the `.gitmodules`
 
 ## API 
 
