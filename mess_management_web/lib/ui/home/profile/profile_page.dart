@@ -1,10 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:jiffy/jiffy.dart';
+import 'package:mess_management_web/core/services/auth_service.dart';
 import 'package:mess_management_web/styles.dart';
+
+import '../../../service_locator.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    final auth = locator<AuthService>();
+    var list = [];
+    if (auth.isWorker == true) {
+      list.add(ProfileRow(
+        item1: 'Role',
+        item2: auth.worker.workerRole,
+      ));
+      list.add(ProfileRow(
+        item1: 'Salary',
+        item2: 'INR ${auth.worker.salary.toStringAsFixed(2)}',
+      ));
+      list.add(ProfileRow(
+        item1: 'Shift',
+        item2:
+            '${Jiffy(auth.worker.shiftStart).Hm} to ${Jiffy(auth.worker.shiftEnd).Hm}',
+      ));
+    } else {
+      list.add(ProfileRow(
+        item1: 'Email',
+        item2: auth.student.email,
+      ));
+      list.add(ProfileRow(
+        item1: 'Year',
+        item2: auth.student.year.toString(),
+      ));
+      list.add(ProfileRow(
+        item1: 'Branch',
+        item2: auth.student.branch,
+      ));
+    }
+    return Align(
+      alignment: Alignment.topCenter,
       child: Container(
         width: 360,
         padding: EdgeInsets.all(24),
@@ -17,20 +52,21 @@ class ProfilePage extends StatelessWidget {
               width: 16,
             ),
             Text(
-              'Amish Garg',
+              '${auth.user.fullName}',
               style: b80_14_600,
             ),
             SizedBox(
               height: 8,
             ),
-            Text('18114040', style: b60_14),
+            Text('${auth.user.enrollment}', style: b60_14),
             SizedBox(
               height: 8,
             ),
-            ProfileRow(item1: 'Bhawaan', item2: 'Rajendra Bhwan'),
-            ProfileRow(item1: 'Bhawaan', item2: 'Rajendra Bhwan'),
-            ProfileRow(item1: 'Bhawaan', item2: 'Rajendra Bhwan'),
-            ProfileRow(item1: 'Bhawaan', item2: 'Rajendra Bhwan'),
+            ProfileRow(item1: 'Phone', item2: '${auth.user.phone}'),
+            ProfileRow(
+                item1: 'Date of Birth', item2: '${auth.user.dateOfBirth}'),
+            ProfileRow(item1: 'Bhawan', item2: '${auth.user.bhawan}'),
+            ...list,
           ],
         ),
       ),

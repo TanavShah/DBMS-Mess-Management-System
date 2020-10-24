@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'exceptions.dart';
 
 class Api {
-  static const URL = 'https://www/example.com/';
+  static const URL = 'https://dbms-ppr.herokuapp.com/';
 
   var client = http.Client();
 
@@ -23,6 +23,8 @@ class Api {
 
   Future<dynamic> post(String endpoint, String body) async {
     var responseJson;
+    print(URL + endpoint);
+    print(body);
     try {
       http.Response response = await http.post(
         URL + endpoint,

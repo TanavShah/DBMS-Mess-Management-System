@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mess_management_web/core/services/auth_service.dart';
+import 'package:mess_management_web/core/viewmodels/feedback_model.dart';
 import 'package:mess_management_web/core/viewmodels/home_model.dart';
 import 'package:mess_management_web/core/viewmodels/menu_model.dart';
 import 'package:mess_management_web/styles.dart';
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage> {
       providers: [
         ChangeNotifierProvider(create: (_) => HomeModel()),
         ChangeNotifierProvider(create: (_) => MenuModel()),
+        ChangeNotifierProvider(create: (_) => FeedBackModel()),
       ],
       child: Scaffold(
         appBar: AppBar(

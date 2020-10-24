@@ -8,8 +8,15 @@ class MessMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(text, style: b60_14),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.all(4),
+          child: Text(text, style: b60_14),
+        ),
+        Divider(),
+      ],
     );
   }
 }

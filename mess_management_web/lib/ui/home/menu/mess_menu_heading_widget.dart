@@ -9,10 +9,12 @@ class MessMenuHeadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.maxFinite,
+      padding: EdgeInsets.all(8),
       color: mapping[id][0],
       child: Text(
         mapping[id][1],
-        style: b90_14_600,
+        style: white_14_600,
       ),
     );
   }

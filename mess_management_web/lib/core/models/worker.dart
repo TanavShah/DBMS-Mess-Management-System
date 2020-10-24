@@ -12,7 +12,8 @@ class Worker {
   DateTime shiftStart;
   DateTime shiftEnd;
 
-  Worker(this.user, this.salary, this.workerRole, this.shiftStart, this.shiftEnd);
+  Worker(
+      this.user, this.salary, this.workerRole, this.shiftStart, this.shiftEnd);
 
   factory Worker.fromJson(Map<String, dynamic> json) => _$WorkerFromJson(json);
 
