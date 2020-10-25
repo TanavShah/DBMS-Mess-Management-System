@@ -58,7 +58,7 @@ class _AddMemberPageState extends State<AddMemberPage> {
                         onSaved: (value) {
                           Provider.of<ViewDataModel>(context, listen: false)
                               .tempUser
-                              .phone_no = value;
+                              .phoneNo = value;
                         }),
                     AddField(
                         text: 'Date of Birth',
@@ -99,32 +99,11 @@ class _AddMemberPageState extends State<AddMemberPage> {
                     ],
                     if (!widget.isStudent) ...[
                       AddField(
-                          text: 'Salary',
-                          onSaved: (value) {
-                            Provider.of<ViewDataModel>(context, listen: false)
-                                .tempWorker
-                                .salary = double.parse(value);
-                          }),
-                      AddField(
                           text: 'Role',
                           onSaved: (value) {
                             Provider.of<ViewDataModel>(context, listen: false)
                                 .tempWorker
                                 .workerRole = value;
-                          }),
-                      AddField(
-                          text: 'Shift start',
-                          onSaved: (value) {
-                            Provider.of<ViewDataModel>(context, listen: false)
-                                .tempWorker
-                                .shiftStart = value;
-                          }),
-                      AddField(
-                          text: 'Shift end',
-                          onSaved: (value) {
-                            Provider.of<ViewDataModel>(context, listen: false)
-                                .tempWorker
-                                .shiftEnd = value;
                           }),
                     ]
                   ],

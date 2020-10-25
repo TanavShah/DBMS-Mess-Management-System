@@ -61,7 +61,7 @@ class ProfilePage extends StatelessWidget {
             SizedBox(
               height: 8,
             ),
-            ProfileRow(item1: 'Phone', item2: '${auth.user.phone_no}'),
+            ProfileRow(item1: 'Phone', item2: '${auth.user.phoneNo}'),
             ProfileRow(
                 item1: 'Date of Birth', item2: '${auth.user.dateOfBirth}'),
             ProfileRow(item1: 'Bhawan', item2: '${auth.user.bhawan}'),

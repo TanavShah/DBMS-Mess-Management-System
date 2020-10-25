@@ -89,7 +89,7 @@ class TableRow extends StatelessWidget {
               '${user.fullName}',
               style: b90_14,
             ),
-            TableEntry('${user.phone_no}'),
+            TableEntry('${user.phoneNo}'),
             TableEntry('${user.dateOfBirth.substring(0, 11)}'),
             TableEntry('${user.bhawan}'),
             if (student != null) ...[

@@ -44,7 +44,7 @@ class ViewDataModel extends BaseModel {
     final student = tempStudent..user = tempUser;
     var res = await data.addStudent(student);
     if (res == true) {
-      _students.add(student);
+      getStudents();
       tempStudent = Student.empty();
       tempUser = User.empty();
       return true;
@@ -56,7 +56,7 @@ class ViewDataModel extends BaseModel {
     final worker = tempWorker..user = tempUser;
     var res = await data.addWorker(worker);
     if (res == true) {
-      _workers.add(worker);
+      getWorkers();
       tempWorker = Worker.empty();
       tempUser = User.empty();
       return true;

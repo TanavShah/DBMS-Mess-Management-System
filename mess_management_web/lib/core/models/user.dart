@@ -6,11 +6,11 @@ part 'user.g.dart';
 class User {
   String enrollmentNo;
   String fullName;
-  String phone_no;
+  String phoneNo;
   String dateOfBirth;
   String bhawan;
 
-  User(this.enrollmentNo, this.fullName, this.phone_no, this.dateOfBirth,
+  User(this.enrollmentNo, this.fullName, this.phoneNo, this.dateOfBirth,
       this.bhawan);
   User.empty();
 
