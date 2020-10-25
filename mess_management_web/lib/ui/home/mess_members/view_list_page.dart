@@ -30,7 +30,7 @@ class ViewListPage extends StatelessWidget {
               ? List.generate(
                   model.workers.length,
                   (index) => TableRow(
-                        student: model.students.elementAt(index),
+                        worker: model.workers.elementAt(index),
                       ))
               : [];
         }

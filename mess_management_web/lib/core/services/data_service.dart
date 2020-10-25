@@ -10,7 +10,7 @@ class DataService {
   final _api = locator<Api>();
 
   Future<List<Student>> getStudents() async {
-    var response = await _api.get('user/student');
+    var response = await _api.get('user/student/');
     var list = <Student>[];
     if (response is List) {
       response.forEach((element) {
@@ -21,7 +21,7 @@ class DataService {
   }
 
   Future<List<Worker>> getWorkers() async {
-    var response = await _api.get('user/worker');
+    var response = await _api.get('user/worker/');
     var list = <Worker>[];
     if (response is List) {
       response.forEach((element) {
@@ -36,7 +36,7 @@ class DataService {
     map.addAll(student.toJson());
     map.addAll(student.user.toJson());
     map["hostel"] = student.user.bhawan;
-    map["user"] = null;
+    map.remove("user");
     var response = await _api.post(
       'user/student/add',
       jsonEncode(map),
@@ -51,7 +51,8 @@ class DataService {
     var map = <String, dynamic>{};
     map.addAll(worker.toJson());
     map.addAll(worker.user.toJson());
-    map["user"] = null;
+    map.remove("user");
+    map["hostel"] = worker.user.bhawan;
     var response = await _api.post(
       'user/worker/add',
       jsonEncode(map),

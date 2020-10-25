@@ -22,7 +22,7 @@ class FeedbackService {
   }
 
   Future<FeedbackList> getFeedBacks() async {
-    var response = await _api.get('feedback');
+    var response = await _api.get('feedback/');
     print(response[0]);
     var items = <FeedBack>[];
     if (response is List) {
