@@ -12,6 +12,7 @@ class User {
 
   User(this.enrollmentNo, this.fullName, this.phone_no, this.dateOfBirth,
       this.bhawan);
+  User.empty();
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 

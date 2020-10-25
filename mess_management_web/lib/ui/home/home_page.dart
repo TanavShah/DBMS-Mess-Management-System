@@ -5,6 +5,7 @@ import 'package:mess_management_web/core/viewmodels/home_model.dart';
 import 'package:mess_management_web/core/viewmodels/menu_model.dart';
 import 'package:mess_management_web/core/viewmodels/view_data_model.dart';
 import 'package:mess_management_web/styles.dart';
+import 'package:mess_management_web/ui/home/add_data/add_data_page.dart';
 import 'package:mess_management_web/ui/home/feedback/feedback_page.dart';
 import 'package:mess_management_web/ui/home/feedback/view_feedbacks.dart';
 import 'package:mess_management_web/ui/home/menu/mess_menu_page.dart';
@@ -59,6 +60,10 @@ class _HomePageState extends State<HomePage> {
         return ViewListPage(isStudent: true);
       case 5:
         return ViewListPage(isStudent: false);
+      case 6:
+        return AddMemberPage(isStudent: true);
+      case 7:
+        return AddMemberPage(isStudent: false);
     }
     return MessMenuPage();
   }

@@ -12,6 +12,7 @@ class Student {
   String email;
 
   Student(this.user, this.yearNo, this.branch, this.email);
+  Student.empty();
 
   factory Student.fromJson(Map<String, dynamic> json) =>
       _$StudentFromJson(json);

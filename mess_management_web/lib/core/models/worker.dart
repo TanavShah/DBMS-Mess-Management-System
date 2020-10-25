@@ -14,6 +14,7 @@ class Worker {
 
   Worker(
       this.user, this.salary, this.workerRole, this.shiftStart, this.shiftEnd);
+  Worker.empty();
 
   factory Worker.fromJson(Map<String, dynamic> json) => _$WorkerFromJson(json);
 

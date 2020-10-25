@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mess_management_web/core/models/student.dart';
 import 'package:mess_management_web/core/models/user.dart';
 import 'package:mess_management_web/core/models/worker.dart';
+import 'package:mess_management_web/core/viewmodels/home_model.dart';
 import 'package:mess_management_web/core/viewmodels/view_data_model.dart';
 import 'package:mess_management_web/ui/app_button.dart';
 import 'package:provider/provider.dart';
@@ -13,51 +14,56 @@ class ViewListPage extends StatelessWidget {
   const ViewListPage({Key key, this.isStudent}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Consumer<ViewDataModel>(builder: (_, model, __) {
-      var list;
-      if (isStudent) {
-        list = model.students != null
-            ? List.generate(
-                model.students.length,
-                (index) => TableRow(
-                      student: model.students.elementAt(index),
-                    ))
-            : [];
-      } else {
-        list = model.workers != null
-            ? List.generate(
-                model.workers.length,
-                (index) => TableRow(
-                      student: model.students.elementAt(index),
-                    ))
-            : [];
-      }
-      return SingleChildScrollView(
-        child: Center(
-          child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    isStudent ? 'Students' : 'Workers',
-                    style: b90_20_600,
+    return Consumer<ViewDataModel>(
+      builder: (_, model, __) {
+        var list;
+        if (isStudent) {
+          list = model.students != null
+              ? List.generate(
+                  model.students.length,
+                  (index) => TableRow(
+                        student: model.students.elementAt(index),
+                      ))
+              : [];
+        } else {
+          list = model.workers != null
+              ? List.generate(
+                  model.workers.length,
+                  (index) => TableRow(
+                        student: model.students.elementAt(index),
+                      ))
+              : [];
+        }
+        return SingleChildScrollView(
+          child: Center(
+            child: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      isStudent ? 'Students' : 'Workers',
+                      style: b90_20_600,
+                    ),
                   ),
-                ),
-                ...list,
-                Center(
-                  child: AppButton(
-                    onPressed: () {},
-                    text: isStudent ? 'ADD NEW STUDENT' : ' ADD NEW WORKER',
-                  ),
-                )
-              ],
+                  ...list,
+                  Center(
+                    child: AppButton(
+                      onPressed: () {
+                        Provider.of<HomeModel>(context, listen: false)
+                            .activeIndex = isStudent ? 6 : 7;
+                      },
+                      text: isStudent ? 'ADD NEW STUDENT' : ' ADD NEW WORKER',
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }
 
