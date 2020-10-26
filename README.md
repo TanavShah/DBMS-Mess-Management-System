@@ -43,7 +43,7 @@ git submodule update --remote
 
 And then commit the required changed to the submodule folder and the `.gitmodules`
 
-## API 
+## API
 
 ### Feedback
 #### GET
@@ -102,7 +102,7 @@ return json response
 type : post
 http://127.0.0.1:8000/user/workerrole/add
 body :
-worker_role,salary,shift_start,shift_end : all strings :: example : 'sweeper','5000','08:00:00','12:20:00' 
+worker_role,salary,shift_start,shift_end : all strings :: example : 'sweeper','5000','08:00:00','12:20:00'
 return 200  if success
 ```
 
@@ -137,13 +137,13 @@ Route : `/wastage/`
 
 Request body:
 {
-	"week_no": int,
-	"year_no": int,
+    "week_number": int,
+    "year_number": int,
 }
 
 example:
 
-> curl -d '{"week_no":44, "year_no":2021}' "http://127.0.0.1:8000/wastage/"
+> curl -d '{"week_number":44, "year_number":2021}' "http://127.0.0.1:8000/wastage/"
 
 
 Responses:
@@ -154,14 +154,14 @@ sample response:
 [] : if no result exists
 
 [
-	{
-		"curr_date":"2020-10-20T00:00:00Z",
-		"amount":100.2,
-		"waste_weight":50.34
-	},
-	.
-	.
-	.
+    {
+        "curr_date":"2020-10-20T00:00:00Z",
+        "amount":100.2,
+        "waste_weight":50.34
+    },
+    .
+    .
+    .
 ]
 ```
 
@@ -172,9 +172,9 @@ Route : `/wastage/add`
 
 Request body:
 {
-	"curr_date": datetime as a string format,
-	"amount": float/double,
-	"waste_weight": float/double
+    "curr_date": datetime as a string format,
+    "amount": float/double,
+    "waste_weight": float/double
 }
 
 example:
@@ -184,7 +184,7 @@ example:
 Responses:
 - 200 : if entry is created successfully
 
-- 400 : 
+- 400 :
 
 1. if entry already exits
 
@@ -220,18 +220,18 @@ example response:
 [
     {
         "menu_date": "2020-10-23T00:00:00Z",
-        "title_id": 3,
-        "items": [
-            "shikanji",
+            "title_id": 3,
+            "items": [
+                "shikanji",
             "roti"
-        ],
-        "title_name": "Dinner",
-        "start_time": "19:30:00",
-        "end_time": "21:30:00"
+            ],
+            "title_name": "Dinner",
+            "start_time": "19:30:00",
+            "end_time": "21:30:00"
     },
-    .
-    .
-    .
+        .
+        .
+        .
 ]
 
 Type : POST
@@ -239,7 +239,7 @@ Route : `/menu/`
 
 Request body:
 {
-	"menu_date": datetime field
+    "menu_date": datetime field
 }
 
 example:
@@ -293,7 +293,7 @@ example:
 Responses:
 - 200 : if entry is created successfully
 
-- 400 : 
+- 400 :
 
 if some entries are absent
 
@@ -363,7 +363,7 @@ Responses:
 
 - 200 : entry is created successfully
 
-- 400 : 
+- 400 :
 
 1. if some field are missing:
 
