@@ -47,88 +47,49 @@ And then commit the required changed to the submodule folder and the `.gitmodule
 
 ### Feedback
 #### GET
-```
-type : get
-http://127.0.0.1:8000/feedback?hostel=Rajiv Bhawan
-or
-http://127.0.0.1:8000/feedback
-return : 200 if successful
-```
+    GET : /feedback/
+    query : none/hostel
 #### ADD
-```
-http://127.0.0.1:8000/feedback/add
-type : post
-body :
-student_id : string,title : string, feedback_description : string
-return : 200 if success
-```
+    POST : /feedback/add/
+    body : student_id, title, feedback_description
 #### DEL
-```
-http://127.0.0.1:8000/feedback/del
-type : post
-body:
-id : string
-return : 200 if success
-```
+    POST : /feedback/del/
+    body : id 
 
 ### STUDENT
 #### GET
-```
-type : get
-http://127.0.0.1:8000/user/student
-http://127.0.0.1:8000/user/student?hostel=govind bhawan
-http://127.0.0.1:8000/user/student?enrollment_no=18118080
-return json response
-```
+    GET : /user/student/
+    query : none/enrollment_no/hostel
 #### ADD
-```
-type : post
-http://127.0.0.1:8000/user/student/add
-body :
-enrollment_no,full_name,phone_no,date_of_birth,hostel,year_no,branch,email : all strings
-return 200  if success
-```
+    POST : /user/student/add/
+    body : enrollment_no, full_name, phone_no, date_of_birth(YYYY-MM-DD hh24:mm:ss), hostel, year_no, branch, email
 
 ### WORKERROLE
 #### GET
-```
-type : get
-http://127.0.0.1:8000/user/workerrole
-http://127.0.0.1:8000/user/workerrole?worker_role=cleaner
-return json response
-```
+    GET : /user/workerrole/
+    query : none or worker_role
 #### ADD
-```
-type : post
-http://127.0.0.1:8000/user/workerrole/add
-body :
-worker_role,salary,shift_start,shift_end : all strings :: example : 'sweeper','5000','08:00:00','12:20:00'
-return 200  if success
-```
-
+    POST : /user/workerrole/add/
+    body : worker_role,salary,shift_start,shift_end(hh24:mm:ss)
+#### DEL
+    POST : /user/workerrole/del/
+    body : worker_role
+#### UPDATE
+    POST : /user/workerrole/update/
+    body : worker_role(required) , atleast one from (salary, shift_start, shift_end)
+    
 ### WORKER
 #### GET
-```
-type : get
-http://127.0.0.1:8000/user/worker
-http://127.0.0.1:8000/user/worker?hostel=govind bhawan
-http://127.0.0.1:8000/user/worker?enrollment_no=18118080
-return json response
-```
+    GET : /user/worker/
+    query : none/hostel/enrollment_no
 #### ADD
-```
-type : post
-http://127.0.0.1:8000/user/worker/add
-body :
-enrollment_no,full_name,phone_no,date_of_birth,hostel,worker_role : all strings
-return 200  if success
-```
-
+    POST : /worker/add/
+    body : enrollment_no, full_name, phone_no, date_of_birth(YYYY-MM-DD hh24:mm:ss), hostel, worker_role
+    
 ### LOGIN
-```
-http://127.0.0.1:8000/user/login?enrollment_no=18118080
-```
-
+    GET : /user/login/
+    query : enrollment_no
+    
 ### WASTAGE
 #### GET
 ```markdown
