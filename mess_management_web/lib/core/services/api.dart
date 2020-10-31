@@ -44,6 +44,7 @@ class Api {
   dynamic _returnResponse(http.Response response) async {
     switch (response.statusCode) {
       case 200:
+      case 201:
         dynamic responseJson = {};
         if (response.body.isNotEmpty)
           responseJson = json.decode(response.body.toString());

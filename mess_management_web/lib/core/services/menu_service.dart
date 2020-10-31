@@ -11,9 +11,13 @@ class MenuService {
 
 //  Map<DateTime, MenuResponse> _menuDB;
 
+  String dateToApiFormat(DateTime menuDate) {
+    return menuDate.toIso8601String().substring(0, 23);
+  }
+
   Future<MenuResponse> getMenuResponse(DateTime menuDate) async {
-    var response = await _api.post('menu',
-        jsonEncode({"menu_date": menuDate.toIso8601String().substring(0, 23)}));
+    var response = await _api.post(
+        'menu', jsonEncode({"menu_date": dateToApiFormat(menuDate)}));
 
     if (response != null) {
       var list = <Menu>[];
@@ -29,5 +33,25 @@ class MenuService {
       return res;
     }
     return null;
+  }
+
+  Future<bool> addMenu(
+      DateTime menuDate, String titleName, List<String> items) async {
+    var response = await _api.post(
+      'menu/add',
+      jsonEncode(
+        <String, dynamic>{
+          "menu_date": dateToApiFormat(menuDate),
+          "title_name": titleName,
+          "items": items,
+        },
+      ),
+    );
+
+    if (response != null) {
+      return true;
+    }
+
+    return false;
   }
 }
