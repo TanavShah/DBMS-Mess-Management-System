@@ -43,18 +43,24 @@ class MessMenuPage extends StatelessWidget {
                             );
                             model.selectedDate = selected;
                           },
-                          child: Text(
-                              Jiffy(model.selectedDate).format("dd MMM, yyyy"),
-                              style: b90_14_600),
+                          child: Container(
+                            padding: EdgeInsets.all(32),
+                            child: Text(
+                                Jiffy(model.selectedDate)
+                                    .format("dd MMM, yyyy"),
+                                style: b90_20_600.copyWith(
+                                    decoration: TextDecoration.underline)),
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  model.currentMenu != null &&
-                          model.currentMenu.menus.length != 0
+                  (model.currentMenu != null &&
+                          model.currentMenu.menus.length != 0)
                       ? Flexible(
                           child: SingleChildScrollView(
                             child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [...list],
                             ),
@@ -84,8 +90,22 @@ class _MenuNotAvailableState extends State<MenuNotAvailable> {
     return Container(
       child: Column(
         children: [
-          Text('Menu not available'),
-          if (locator<AuthService>().isWorker == true)
+          Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Column(
+              children: [
+                Image.asset('assets/meal_icon.png', scale: 2),
+                SizedBox(
+                  height: 16,
+                ),
+                Text(
+                  'Menu not uploaded',
+                  style: b90_14,
+                ),
+              ],
+            ),
+          ),
+          if (locator<AuthService>().isWorker == true && !showAddMenu)
             AppButton(
               text: "Add Menu",
               onPressed: () {

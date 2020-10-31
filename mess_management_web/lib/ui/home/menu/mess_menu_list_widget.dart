@@ -18,7 +18,7 @@ class MessMenuListWidget extends StatelessWidget {
       child: Container(
         width: width / 4,
         padding: EdgeInsets.all(16),
-        decoration: cardDecoration,
+        decoration: cardDecorationDeepShadow,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,

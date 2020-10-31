@@ -9,12 +9,13 @@ class MessMenuHeadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(bottom: 16),
       width: double.maxFinite,
-      padding: EdgeInsets.all(8),
-      color: mapping[id][0],
+      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 2),
+      // color: mapping[id][0],
       child: Text(
         mapping[id][1],
-        style: white_14_600,
+        style: b90_20_600,
       ),
     );
   }
