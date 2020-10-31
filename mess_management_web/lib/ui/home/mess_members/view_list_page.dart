@@ -37,24 +37,30 @@ class ViewListPage extends StatelessWidget {
         return SingleChildScrollView(
           child: Center(
             child: Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              constraints: BoxConstraints(maxWidth: 1080),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 32.0, horizontal: 8),
                     child: Text(
                       isStudent ? 'Students' : 'Workers',
                       style: b90_20_600,
                     ),
                   ),
                   ...list,
-                  Center(
-                    child: AppButton(
-                      onPressed: () {
-                        Provider.of<HomeModel>(context, listen: false)
-                            .activeIndex = isStudent ? 6 : 7;
-                      },
-                      text: isStudent ? 'ADD NEW STUDENT' : ' ADD NEW WORKER',
+                  Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: Center(
+                      child: AppButton(
+                        onPressed: () {
+                          Provider.of<HomeModel>(context, listen: false)
+                              .activeIndex = isStudent ? 6 : 7;
+                        },
+                        text: isStudent ? 'ADD NEW STUDENT' : ' ADD NEW WORKER',
+                      ),
                     ),
                   )
                 ],
@@ -84,23 +90,48 @@ class TableRow extends StatelessWidget {
             TableEntry(
               '${user.enrollmentNo}',
               style: b90_14_600,
+              flex: 2,
+            ),
+            TableEntry('${user.fullName}', style: b90_14, flex: 2),
+            TableEntry(
+              '${user.phoneNo}',
+              flex: 2,
             ),
             TableEntry(
-              '${user.fullName}',
-              style: b90_14,
+              '${user.dateOfBirth.substring(0, 11)}',
+              flex: 2,
             ),
-            TableEntry('${user.phoneNo}'),
-            TableEntry('${user.dateOfBirth.substring(0, 11)}'),
-            TableEntry('${user.bhawan}'),
+            TableEntry(
+              '${user.bhawan}',
+              flex: 3,
+            ),
             if (student != null) ...[
-              TableEntry('${student.email}'),
-              TableEntry('${student.yearNo}'),
-              TableEntry('${student.branch}'),
+              TableEntry(
+                '${student.email}',
+                flex: 3,
+              ),
+              TableEntry(
+                '${student.yearNo}',
+                flex: 1,
+              ),
+              TableEntry(
+                '${student.branch}',
+                flex: 2,
+              ),
             ],
             if (worker != null) ...[
-              TableEntry('${worker.salary}'),
-              TableEntry('${worker.workerRole}'),
-              TableEntry('${worker.shiftStart} to ${worker.shiftEnd}'),
+              TableEntry(
+                '${worker.salary}',
+                flex: 2,
+              ),
+              TableEntry(
+                '${worker.workerRole}',
+                flex: 2,
+              ),
+              TableEntry(
+                '${worker.shiftStart} to ${worker.shiftEnd}',
+                flex: 3,
+              ),
             ]
           ],
         ),
@@ -110,12 +141,14 @@ class TableRow extends StatelessWidget {
 }
 
 class TableEntry extends StatelessWidget {
+  final flex;
   final String text;
   final TextStyle style;
-  const TableEntry(this.text, {this.style});
+  const TableEntry(this.text, {this.style, this.flex});
   @override
   Widget build(BuildContext context) {
-    return Flexible(
+    return Expanded(
+      flex: flex ?? 1,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(

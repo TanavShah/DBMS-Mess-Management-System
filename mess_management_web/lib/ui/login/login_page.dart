@@ -20,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
     return ChangeNotifierProvider(
       create: (_) => LoginModel(),
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text('Mess Management System IIT Roorkee'),
         ),
