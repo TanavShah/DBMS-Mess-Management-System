@@ -20,18 +20,24 @@ class ViewListPage extends StatelessWidget {
         if (isStudent) {
           list = model.students != null
               ? List.generate(
-                  model.students.length,
-                  (index) => TableRow(
-                        student: model.students.elementAt(index),
-                      ))
+                  model.students.length + 1,
+                  (index) => index == 0
+                      ? TableRow(
+                          isHeader: true, student: model.students.elementAt(0))
+                      : TableRow(
+                          student: model.students.elementAt(index - 1),
+                        ))
               : [];
         } else {
           list = model.workers != null
               ? List.generate(
-                  model.workers.length,
-                  (index) => TableRow(
-                        worker: model.workers.elementAt(index),
-                      ))
+                  model.workers.length + 1,
+                  (index) => index == 0
+                      ? TableRow(
+                          isHeader: true, worker: model.workers.elementAt(0))
+                      : TableRow(
+                          worker: model.workers.elementAt(index - 1),
+                        ))
               : [];
         }
         return SingleChildScrollView(
@@ -74,62 +80,68 @@ class ViewListPage extends StatelessWidget {
 }
 
 class TableRow extends StatelessWidget {
+  final bool isHeader;
   final Student student;
   final Worker worker;
 
-  const TableRow({Key key, this.student, this.worker}) : super(key: key);
+  const TableRow({Key key, this.student, this.worker, this.isHeader: false})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     final User user = student != null ? student.user : worker.user;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
         decoration: cardDecoration,
         child: Row(
           children: [
             TableEntry(
-              '${user.enrollmentNo}',
+              isHeader ? "Enrollment" : '${user.enrollmentNo}',
               style: b90_14_600,
               flex: 2,
             ),
-            TableEntry('${user.fullName}', style: b90_14, flex: 2),
+            TableEntry(isHeader ? "Name" : '${user.fullName}',
+                style: b90_14, flex: 2),
             TableEntry(
-              '${user.phoneNo}',
+              isHeader ? "Phone" : '${user.phoneNo}',
               flex: 2,
             ),
             TableEntry(
-              '${user.dateOfBirth.substring(0, 11)}',
+              isHeader ? "DOB" : '${user.dateOfBirth.substring(0, 11)}',
               flex: 2,
             ),
             TableEntry(
-              '${user.bhawan}',
+              isHeader ? "Bhawan" : '${user.bhawan}',
               flex: 3,
             ),
             if (student != null) ...[
               TableEntry(
-                '${student.email}',
+                isHeader ? "Email" : '${student.email}',
                 flex: 3,
               ),
               TableEntry(
-                '${student.yearNo}',
+                isHeader ? "Year" : '${student.yearNo}',
                 flex: 1,
               ),
               TableEntry(
-                '${student.branch}',
+                isHeader ? "Branch" : '${student.branch}',
                 flex: 2,
               ),
             ],
             if (worker != null) ...[
               TableEntry(
-                '${worker.salary}',
+                isHeader ? "Salary" : '${worker.salary}',
                 flex: 2,
               ),
               TableEntry(
-                '${worker.workerRole}',
+                isHeader ? "Role" : '${worker.workerRole}',
                 flex: 2,
               ),
               TableEntry(
-                '${worker.shiftStart} to ${worker.shiftEnd}',
+                isHeader
+                    ? "Shift"
+                    : '${worker.shiftStart} to ${worker.shiftEnd}',
                 flex: 3,
               ),
             ]
