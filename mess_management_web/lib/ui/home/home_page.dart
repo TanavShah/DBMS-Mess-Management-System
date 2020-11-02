@@ -39,7 +39,24 @@ class _HomePageState extends State<HomePage> {
       ],
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Mess Management System'),
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: Icon(
+                  Icons.menu,
+                  color: Colors.white.withOpacity(0.9),
+                ),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              );
+            },
+          ),
+          title: Text(
+            'MESS MANAGEMENT SYSTEM',
+            style: w90_16_600,
+          ),
         ),
         drawer: NavDrawer(),
         body: Container(

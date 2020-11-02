@@ -84,7 +84,8 @@ final appPurple_14_600 =
 final w60_12 = TextStyle(fontSize: fs12, color: white.withOpacity(0.6));
 final w80_12 = TextStyle(fontSize: fs12, color: white.withOpacity(0.8));
 final w90_14 = TextStyle(fontSize: fs14, color: white.withOpacity(0.9));
-
+final w90_16_600 = TextStyle(
+    fontSize: fs16, color: white.withOpacity(0.9), fontWeight: FontWeight.bold);
 final grey_14 = TextStyle(fontSize: fs14, color: grey);
 final grey_10_600 =
     TextStyle(fontSize: fs10, color: grey, fontWeight: FontWeight.w600);
