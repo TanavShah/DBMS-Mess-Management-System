@@ -11,7 +11,7 @@ class MenuService {
 
 //  Map<DateTime, MenuResponse> _menuDB;
 
-  String dateToApiFormat(DateTime menuDate) {
+  static String dateToApiFormat(DateTime menuDate) {
     return menuDate.toIso8601String().substring(0, 23);
   }
 

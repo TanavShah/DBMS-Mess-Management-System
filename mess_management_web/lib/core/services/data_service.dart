@@ -1,13 +1,21 @@
 import 'dart:convert';
 
+import 'package:jiffy/jiffy.dart';
+import 'package:mess_management_web/core/models/expense.dart';
 import 'package:mess_management_web/core/models/student.dart';
+import 'package:mess_management_web/core/models/wastage.dart';
 import 'package:mess_management_web/core/models/worker.dart';
+import 'package:mess_management_web/core/services/menu_service.dart';
 
 import '../../service_locator.dart';
 import 'api.dart';
 
 class DataService {
   final _api = locator<Api>();
+
+  static final now = DateTime.now();
+  static int weekNumber = Jiffy(now).week;
+  static int yearNumber = now.year;
 
   Future<List<Student>> getStudents() async {
     var response = await _api.get('user/student/');
@@ -61,5 +69,65 @@ class DataService {
       return true;
     }
     return false;
+  }
+
+  Future<List<Wastage>> getWastageData() async {
+    var response = await _api.post(
+      'wastage',
+      jsonEncode(
+        <String, dynamic>{"week_number": weekNumber, "year_number": yearNumber},
+      ),
+    );
+
+    var list = <Wastage>[];
+    if (response is List) {
+      response.forEach((res) {
+        list.add(Wastage.fromJson(res));
+      });
+      return list;
+    }
+    return [];
+  }
+
+  Future<Expense> getExpenseData() async {
+    var response = await _api.post(
+      "expense",
+      jsonEncode(
+        <String, dynamic>{"week_number": weekNumber, "year_number": yearNumber},
+      ),
+    );
+    if (response != null) {
+      return Expense.fromJson(response);
+    }
+    return null;
+  }
+
+  Future<String> addExpense(double amount) async {
+    var response = await _api.post(
+      'expense/add',
+      jsonEncode(
+        <String, dynamic>{
+          "week_number": weekNumber,
+          "year_number": yearNumber,
+          "amount": amount,
+        },
+      ),
+    );
+
+    return response.toString();
+  }
+
+  Future<String> addWastage(
+      DateTime date, double amount, double wasteWeight) async {
+    var response = await _api.post(
+      'wastage/add',
+      jsonEncode(<String, dynamic>{
+        "curr_date": MenuService.dateToApiFormat(date),
+        "amount": amount,
+        "waste_weight": wasteWeight,
+      }),
+    );
+
+    return response.toString();
   }
 }

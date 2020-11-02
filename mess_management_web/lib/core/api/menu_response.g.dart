@@ -8,7 +8,7 @@ part of 'menu_response.dart';
 
 MenuResponse _$MenuResponseFromJson(Map<String, dynamic> json) {
   return MenuResponse(
-    (json as List)
+    (json['menus'] as List)
         ?.map(
             (e) => e == null ? null : Menu.fromJson(e as Map<String, dynamic>))
         ?.toList(),
