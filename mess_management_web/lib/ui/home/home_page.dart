@@ -5,6 +5,7 @@ import 'package:mess_management_web/core/viewmodels/feedback_model.dart';
 import 'package:mess_management_web/core/viewmodels/home_model.dart';
 import 'package:mess_management_web/core/viewmodels/menu_model.dart';
 import 'package:mess_management_web/core/viewmodels/view_data_model.dart';
+import 'package:mess_management_web/core/viewmodels/workerrole_model.dart';
 import 'package:mess_management_web/styles.dart';
 import 'package:mess_management_web/ui/home/add_data/add_data_page.dart';
 import 'package:mess_management_web/ui/home/feedback/feedback_page.dart';
@@ -16,6 +17,7 @@ import 'package:mess_management_web/ui/home/profile/profile_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../service_locator.dart';
+import 'add_data/manage_worker_role.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -32,7 +34,8 @@ class _HomePageState extends State<HomePage> {
         ChangeNotifierProvider(create: (_) => HomeModel()),
         ChangeNotifierProvider(create: (_) => MenuModel()),
         ChangeNotifierProvider(create: (_) => FeedBackModel()),
-        ChangeNotifierProvider(create: (_) => ViewDataModel())
+        ChangeNotifierProvider(create: (_) => ViewDataModel()),
+        ChangeNotifierProvider(create: (_) => WorkerRoleModel()),
       ],
       child: Scaffold(
         appBar: AppBar(
@@ -68,6 +71,8 @@ class _HomePageState extends State<HomePage> {
         return AddMemberPage(isStudent: false);
       case 8:
         return MessDataPage();
+      case 9:
+        return ManageWorkerRole();
     }
     return MessMenuPage();
   }
@@ -119,7 +124,7 @@ class NavDrawer extends StatelessWidget {
             NavDrawerItem(
               title: 'Mess Data',
               index: 8,
-            )
+            ),
           ],
           ListTile(
             onTap: () async {

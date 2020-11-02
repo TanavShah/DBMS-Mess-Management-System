@@ -45,11 +45,17 @@ class Api {
     switch (response.statusCode) {
       case 200:
       case 201:
-        dynamic responseJson = {};
-        if (response.body.isNotEmpty)
-          responseJson = json.decode(response.body.toString());
-        print("RESPONSE JSON: $responseJson");
-        return responseJson;
+        try {
+          dynamic responseJson = {};
+          if (response.body.isNotEmpty)
+            responseJson = json.decode(response.body.toString());
+          print("RESPONSE JSON: $responseJson");
+          return responseJson;
+        } catch (e) {
+          print("ERROR CAUGHT in _returnResponse: ${e.toString()}");
+          return response.body;
+        }
+        break;
       case 400:
         throw BadRequestException(response.body.toString());
       case 401:

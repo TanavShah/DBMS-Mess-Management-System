@@ -5,6 +5,7 @@ import 'package:mess_management_web/core/models/expense.dart';
 import 'package:mess_management_web/core/models/student.dart';
 import 'package:mess_management_web/core/models/wastage.dart';
 import 'package:mess_management_web/core/models/worker.dart';
+import 'package:mess_management_web/core/models/worker_role.dart';
 import 'package:mess_management_web/core/services/menu_service.dart';
 
 import '../../service_locator.dart';
@@ -129,5 +130,35 @@ class DataService {
     );
 
     return response.toString();
+  }
+
+  Future<List<WorkerRole>> getWorkerRoles() async {
+    var response = await _api.get('user/workerrole');
+    if (response is List) {
+      var list = <WorkerRole>[];
+      response.forEach((element) {
+        list.add(WorkerRole.fromJson(element));
+      });
+      return list;
+    }
+    return null;
+  }
+
+  Future<String> addWorkerRole(WorkerRole role) async {
+    var response =
+        await _api.post('user/workerrole/add', jsonEncode(role.toJson()));
+    return response;
+  }
+
+  Future<String> delWorkerRole(WorkerRole role) async {
+    var response =
+        await _api.post('user/workerrole/add', jsonEncode(role.toJson()));
+    return response;
+  }
+
+  Future<String> updateWorkerRole(WorkerRole role) async {
+    var response =
+        await _api.post('user/workerrole/update', jsonEncode(role.toJson()));
+    return response;
   }
 }

@@ -68,7 +68,20 @@ class ViewListPage extends StatelessWidget {
                         text: isStudent ? 'ADD NEW STUDENT' : ' ADD NEW WORKER',
                       ),
                     ),
-                  )
+                  ),
+                  if (isStudent == false)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                      child: Center(
+                        child: AppButton(
+                          onPressed: () {
+                            Provider.of<HomeModel>(context, listen: false)
+                                .activeIndex = 9;
+                          },
+                          text: "Manage worker roles",
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),
