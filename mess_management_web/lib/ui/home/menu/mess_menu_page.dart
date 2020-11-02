@@ -9,6 +9,8 @@ import 'package:mess_management_web/ui/home/menu/mess_menu_list_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:jiffy/jiffy.dart';
 
+import 'add_wastage_column.dart';
+
 class MessMenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class MessMenuPage extends StatelessWidget {
                               firstDate: DateTime.utc(2020, 10, 1),
                               lastDate: DateTime(2021, 1, 1),
                             );
-                            model.selectedDate = selected;
+                            if (selected != null) model.selectedDate = selected;
                           },
                           child: Container(
                             padding: EdgeInsets.all(32),
@@ -58,15 +60,27 @@ class MessMenuPage extends StatelessWidget {
                   (model.currentMenu != null &&
                           model.currentMenu.menus.length != 0)
                       ? Flexible(
-                          child: SingleChildScrollView(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [...list],
-                            ),
+                          child: Column(
+                            children: [
+                              Flexible(
+                                child: SingleChildScrollView(
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [...list],
+                                  ),
+                                ),
+                              ),
+                              Flexible(
+                                child: MenuNotAvailable(onlyWastage: true),
+                              ),
+                            ],
                           ),
                         )
-                      : Flexible(child: MenuNotAvailable()),
+                      : Flexible(
+                          child: MenuNotAvailable(),
+                        ),
                 ],
               ),
             ),
@@ -78,49 +92,78 @@ class MessMenuPage extends StatelessWidget {
 }
 
 class MenuNotAvailable extends StatefulWidget {
+  final bool onlyWastage;
+
+  const MenuNotAvailable({this.onlyWastage: false});
+
   @override
   _MenuNotAvailableState createState() => _MenuNotAvailableState();
 }
 
 class _MenuNotAvailableState extends State<MenuNotAvailable> {
   bool showAddMenu = false;
+  bool showWastageMenu = false;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: Column(
+          if (!widget.onlyWastage)
+            Column(
               children: [
-                Image.asset('assets/meal_icon.png', scale: 2),
-                SizedBox(
-                  height: 16,
+                Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Column(
+                    children: [
+                      Image.asset('assets/meal_icon.png', scale: 2),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        'Menu not uploaded',
+                        style: b90_14,
+                      ),
+                    ],
+                  ),
                 ),
-                Text(
-                  'Menu not uploaded',
-                  style: b90_14,
-                ),
+                if (locator<AuthService>().isWorker == true && !showAddMenu)
+                  AppButton(
+                    text: "Add Menu",
+                    onPressed: () {
+                      setState(() {
+                        showAddMenu = true;
+                      });
+                    },
+                  ),
+                if (showAddMenu)
+                  Flexible(
+                    child: AddMenuColumn(
+                      menuDate: Provider.of<MenuModel>(context, listen: false)
+                          .selectedDate,
+                    ),
+                  ),
               ],
             ),
-          ),
-          if (locator<AuthService>().isWorker == true && !showAddMenu)
-            AppButton(
-              text: "Add Menu",
-              onPressed: () {
-                setState(() {
-                  showAddMenu = true;
-                });
-              },
+          if (!showWastageMenu)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AppButton(
+                text: "Add Wastage",
+                onPressed: () {
+                  setState(() {
+                    showWastageMenu = true;
+                  });
+                },
+              ),
             ),
-          if (showAddMenu)
+          if (showWastageMenu)
             Flexible(
-              child: AddMenuColumn(
+              child: AddWastageColumn(
                 menuDate:
                     Provider.of<MenuModel>(context, listen: false).selectedDate,
               ),
-            )
+            ),
         ],
       ),
     );
