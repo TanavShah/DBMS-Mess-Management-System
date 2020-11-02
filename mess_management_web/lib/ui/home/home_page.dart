@@ -54,7 +54,6 @@ class _HomePageState extends State<HomePage> {
   Widget activePage(int index) {
     switch (index) {
       case 0:
-        return ManageWorkerRole();
         return MessMenuPage();
       case 1:
         return ProfilePage();
