@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mess_management_web/colors.dart';
 import 'package:mess_management_web/core/models/worker_role.dart';
 import 'package:mess_management_web/core/viewmodels/workerrole_model.dart';
 import 'package:mess_management_web/styles.dart';
@@ -57,6 +58,7 @@ class _ManageWorkerRoleState extends State<ManageWorkerRole> {
                       icon: Icon(
                         Icons.add_box,
                         size: 48,
+                        color: appOrange,
                       ),
                       onPressed: () {
                         setState(() {

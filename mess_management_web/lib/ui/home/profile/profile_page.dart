@@ -63,7 +63,8 @@ class ProfilePage extends StatelessWidget {
             ),
             ProfileRow(item1: 'Phone', item2: '${auth.user.phoneNo}'),
             ProfileRow(
-                item1: 'Date of Birth', item2: '${auth.user.dateOfBirth}'),
+                item1: 'Date of Birth',
+                item2: '${Jiffy(auth.user.dateOfBirth).format("dd MMM yyyy")}'),
             ProfileRow(item1: 'Bhawan', item2: '${auth.user.bhawan}'),
             ...list,
           ],

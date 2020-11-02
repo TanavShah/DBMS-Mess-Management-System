@@ -152,7 +152,7 @@ class _MenuNotAvailableState extends State<MenuNotAvailable> {
                 ],
               ),
             ),
-          if (!showWastageMenu)
+          if (!showWastageMenu && locator<AuthService>().isWorker)
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
