@@ -10,7 +10,7 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
+    return RaisedButton(
       color: appOrange,
       padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       onPressed: onPressed,

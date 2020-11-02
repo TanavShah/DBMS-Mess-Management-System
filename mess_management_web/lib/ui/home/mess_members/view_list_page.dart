@@ -58,14 +58,17 @@ class ViewListPage extends StatelessWidget {
                   ),
                   ...list,
                   Padding(
-                    padding: const EdgeInsets.all(32.0),
+                    padding: const EdgeInsets.only(top: 32.0, bottom: 10, right: 32, left: 32),
                     child: Center(
-                      child: AppButton(
-                        onPressed: () {
-                          Provider.of<HomeModel>(context, listen: false)
-                              .activeIndex = isStudent ? 6 : 7;
-                        },
-                        text: isStudent ? 'ADD NEW STUDENT' : ' ADD NEW WORKER',
+                      child: Container(
+                        width: 200,
+                        child: AppButton(
+                          onPressed: () {
+                            Provider.of<HomeModel>(context, listen: false)
+                                .activeIndex = isStudent ? 6 : 7;
+                          },
+                          text: isStudent ? 'ADD NEW STUDENT' : ' ADD NEW WORKER',
+                        ),
                       ),
                     ),
                   ),
@@ -73,12 +76,15 @@ class ViewListPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 32.0),
                       child: Center(
-                        child: AppButton(
-                          onPressed: () {
-                            Provider.of<HomeModel>(context, listen: false)
-                                .activeIndex = 9;
-                          },
-                          text: "Manage worker roles",
+                        child: Container(
+                          width: 200,
+                          child: AppButton(
+                            onPressed: () {
+                              Provider.of<HomeModel>(context, listen: false)
+                                  .activeIndex = 9;
+                            },
+                            text: "Manage worker roles",
+                          ),
                         ),
                       ),
                     ),

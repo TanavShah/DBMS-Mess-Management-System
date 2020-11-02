@@ -130,14 +130,17 @@ class _MenuNotAvailableState extends State<MenuNotAvailable> {
                     ),
                   ),
                   if (locator<AuthService>().isWorker == true && !showAddMenu)
-                    AppButton(
-                      text: "Add Menu",
-                      onPressed: () {
-                        setState(() {
-                          showAddMenu = true;
-                          showWastageMenu = false;
-                        });
-                      },
+                    Container(
+                      width: 200,
+                      child: AppButton(
+                        text: "Add Menu",
+                        onPressed: () {
+                          setState(() {
+                            showAddMenu = true;
+                            showWastageMenu = false;
+                          });
+                        },
+                      ),
                     ),
                   if (showAddMenu)
                     Flexible(
@@ -152,14 +155,17 @@ class _MenuNotAvailableState extends State<MenuNotAvailable> {
           if (!showWastageMenu)
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: AppButton(
-                text: "Add Wastage",
-                onPressed: () {
-                  setState(() {
-                    showWastageMenu = true;
-                    showAddMenu = false;
-                  });
-                },
+              child: Container(
+                width: 200,
+                child: AppButton(
+                  text: "Add Wastage",
+                  onPressed: () {
+                    setState(() {
+                      showWastageMenu = true;
+                      showAddMenu = false;
+                    });
+                  },
+                ),
               ),
             ),
           if (showWastageMenu)
