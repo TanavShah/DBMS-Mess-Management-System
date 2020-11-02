@@ -38,15 +38,15 @@ class MessDataPage extends StatelessWidget {
                   ),
                 )
               : Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     if (row != null)
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
                             padding: EdgeInsets.all(16),
-                            decoration: cardDecoration,
                             child: Text(
                               'Wastage Data',
                               style: b90_20_600,
@@ -54,7 +54,7 @@ class MessDataPage extends StatelessWidget {
                           ),
                           Row(
                             mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: row,
                           ),
                         ],
@@ -65,8 +65,20 @@ class MessDataPage extends StatelessWidget {
                         style: b60_14,
                       ),
                     Flexible(
-                      child: ExpensesData(
-                        expense: model.expenseData,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(16),
+                            child: Text(
+                              'Expense Data',
+                              style: b90_20_600,
+                            ),
+                          ),
+                          ExpensesData(
+                            expense: model.expenseData,
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -129,13 +141,6 @@ class _ExpensesDataState extends State<ExpensesData> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Expenses',
-              style: b60_14,
-            ),
-          ),
           if (widget.expense?.amount != null)
             Text(
               "\u20b9 ${widget.expense.amount}",
