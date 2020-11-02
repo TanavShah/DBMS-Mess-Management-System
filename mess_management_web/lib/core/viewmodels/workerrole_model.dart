@@ -18,7 +18,9 @@ class WorkerRoleModel extends BaseModel {
 
   List<WorkerRole> _roles;
 
-  List<WorkerRole> get roles => _roles;
+  List<WorkerRole> get roles => _roles != null
+      ? (_roles..sort((w1, w2) => w1.workerRole.compareTo(w2.workerRole)))
+      : [];
 
   set roles(List<WorkerRole> value) {
     _roles = value;

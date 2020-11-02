@@ -31,20 +31,41 @@ class _ManageWorkerRoleState extends State<ManageWorkerRole> {
                 ),
               )
             : <Widget>[];
-        return Container(
-          child: Row(
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: list,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                child: Text(
+                  "Worker Role",
+                  style: b90_20_600,
+                ),
               ),
-              if (showAddCard) WorkerRoleAddCard(callback: setFalseCallback),
-              IconButton(
-                icon: Icon(Icons.add_box),
-                onPressed: () {
-                  setState(() {
-                    showAddCard = true;
-                  });
-                },
+              Container(
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Wrap(
+                      children: list,
+                    ),
+                    if (showAddCard)
+                      WorkerRoleAddCard(callback: setFalseCallback),
+                    IconButton(
+                      iconSize: 48,
+                      icon: Icon(
+                        Icons.add_box,
+                        size: 48,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          showAddCard = true;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -61,46 +82,54 @@ class WorkerRoleAddCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<WorkerRoleModel>(context, listen: false);
-    return Container(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          DynamicEditFieldAdd(
-            name: "WorkerRole",
-            val: model.role.workerRole.toString(),
-            onEdit: (value) {
-              model.role = model.role..workerRole = value;
-            },
-          ),
-          DynamicEditFieldAdd(
-            name: "Salary",
-            val: model.role.salary.toString(),
-            onEdit: (value) {
-              model.role = model.role..salary = double.parse(value);
-            },
-          ),
-          DynamicEditFieldAdd(
-            name: "Shift Start",
-            val: model.role.shiftStart,
-            onEdit: (value) {
-              model.role = model.role..shiftStart = value;
-            },
-          ),
-          DynamicEditFieldAdd(
-            name: "Shift End",
-            val: model.role.shiftEnd,
-            onEdit: (value) {
-              model.role = model.role..shiftEnd = value;
-            },
-          ),
-          AppButton(
-            text: "ADD",
-            onPressed: () {
-              model.addWorkerRole(model.role);
-              callback();
-            },
-          ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        decoration: cardDecorationDeepShadow,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            DynamicEditFieldAdd(
+              name: "WorkerRole",
+              val: model.role.workerRole.toString(),
+              onEdit: (value) {
+                model.role = model.role..workerRole = value;
+              },
+            ),
+            DynamicEditFieldAdd(
+              name: "Salary",
+              val: model.role.salary.toString(),
+              onEdit: (value) {
+                model.role = model.role..salary = double.parse(value);
+              },
+            ),
+            DynamicEditFieldAdd(
+              name: "Shift Start",
+              val: model.role.shiftStart,
+              onEdit: (value) {
+                model.role = model.role..shiftStart = value;
+              },
+            ),
+            DynamicEditFieldAdd(
+              name: "Shift End",
+              val: model.role.shiftEnd,
+              onEdit: (value) {
+                model.role = model.role..shiftEnd = value;
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AppButton(
+                text: "ADD",
+                onPressed: () {
+                  model.addWorkerRole(model.role);
+                  callback();
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -113,45 +142,53 @@ class WorkerRoleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<WorkerRoleModel>(context, listen: false);
-    return Container(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              Text(
-                role.workerRole,
-              ),
-              IconButton(
-                icon: Icon(Icons.delete_forever),
-                onPressed: () {
-                  model.delWorkerRole(role);
-                },
-              ),
-            ],
-          ),
-          DynamicEditField(
-            name: "Salary",
-            val: role.salary.toString(),
-            onEdit: (value) {
-              model.updateWorkerRole(role..salary = double.parse(value));
-            },
-          ),
-          DynamicEditField(
-            name: "Shift Start",
-            val: role.shiftStart,
-            onEdit: (value) {
-              model.updateWorkerRole(role..shiftStart = value);
-            },
-          ),
-          DynamicEditField(
-            name: "Shift End",
-            val: role.shiftEnd,
-            onEdit: (value) {
-              model.updateWorkerRole(role..shiftEnd = value);
-            },
-          ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Container(
+        width: 230,
+        padding: EdgeInsets.all(16.0),
+        decoration: cardDecorationDeepShadow,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  role.workerRole,
+                  style: appBlack_16_600,
+                ),
+                IconButton(
+                  icon: Icon(Icons.delete_forever),
+                  onPressed: () {
+                    model.delWorkerRole(role);
+                  },
+                ),
+              ],
+            ),
+            DynamicEditField(
+              name: "Salary",
+              val: role.salary.toString(),
+              onEdit: (value) {
+                model.updateWorkerRole(role..salary = double.parse(value));
+              },
+            ),
+            DynamicEditField(
+              name: "Shift Start",
+              val: role.shiftStart,
+              onEdit: (value) {
+                model.updateWorkerRole(role..shiftStart = value);
+              },
+            ),
+            DynamicEditField(
+              name: "Shift End",
+              val: role.shiftEnd,
+              onEdit: (value) {
+                model.updateWorkerRole(role..shiftEnd = value);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -220,7 +257,10 @@ class _DynamicEditFieldState extends State<DynamicEditField> {
                 Expanded(child: Text(widget.name, style: b60_14)),
                 Text(widget.val, style: b90_14),
                 IconButton(
-                  icon: Icon(Icons.edit),
+                  icon: Icon(
+                    Icons.edit,
+                    size: 16,
+                  ),
                   onPressed: () {
                     setState(() {
                       isEditing = true;
