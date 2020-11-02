@@ -152,7 +152,7 @@ class DataService {
 
   Future<String> delWorkerRole(WorkerRole role) async {
     var response =
-        await _api.post('user/workerrole/add', jsonEncode(role.toJson()));
+        await _api.post('user/workerrole/del', jsonEncode(role.toJson()));
     return response;
   }
 

@@ -7,6 +7,15 @@ import '../../service_locator.dart';
 class WorkerRoleModel extends BaseModel {
   final service = locator<DataService>();
 
+  WorkerRole _role = WorkerRole("", 0, "", "");
+
+  WorkerRole get role => _role;
+
+  set role(WorkerRole value) {
+    _role = value;
+    notifyListeners();
+  }
+
   List<WorkerRole> _roles;
 
   List<WorkerRole> get roles => _roles;
@@ -38,6 +47,7 @@ class WorkerRoleModel extends BaseModel {
 
   Future<void> addWorkerRole(WorkerRole role) async {
     var response = await service.addWorkerRole(role);
+    _role = WorkerRole("", 0, "", "");
     infoText = response;
     fetchWorkerRoles();
   }
