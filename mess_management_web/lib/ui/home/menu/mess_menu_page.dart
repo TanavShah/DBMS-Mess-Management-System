@@ -110,40 +110,44 @@ class _MenuNotAvailableState extends State<MenuNotAvailable> {
       child: Column(
         children: [
           if (!widget.onlyWastage)
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(32.0),
-                  child: Column(
-                    children: [
-                      Image.asset('assets/meal_icon.png', scale: 2),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      Text(
-                        'Menu not uploaded',
-                        style: b90_14,
-                      ),
-                    ],
-                  ),
-                ),
-                if (locator<AuthService>().isWorker == true && !showAddMenu)
-                  AppButton(
-                    text: "Add Menu",
-                    onPressed: () {
-                      setState(() {
-                        showAddMenu = true;
-                      });
-                    },
-                  ),
-                if (showAddMenu)
-                  Flexible(
-                    child: AddMenuColumn(
-                      menuDate: Provider.of<MenuModel>(context, listen: false)
-                          .selectedDate,
+            Flexible(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: Column(
+                      children: [
+                        Image.asset('assets/meal_icon.png', scale: 2),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          'Menu not uploaded',
+                          style: b90_14,
+                        ),
+                      ],
                     ),
                   ),
-              ],
+                  if (locator<AuthService>().isWorker == true && !showAddMenu)
+                    AppButton(
+                      text: "Add Menu",
+                      onPressed: () {
+                        setState(() {
+                          showAddMenu = true;
+                          showWastageMenu = false;
+                        });
+                      },
+                    ),
+                  if (showAddMenu)
+                    Flexible(
+                      child: AddMenuColumn(
+                        menuDate: Provider.of<MenuModel>(context, listen: false)
+                            .selectedDate,
+                      ),
+                    ),
+                ],
+              ),
             ),
           if (!showWastageMenu)
             Padding(
@@ -153,6 +157,7 @@ class _MenuNotAvailableState extends State<MenuNotAvailable> {
                 onPressed: () {
                   setState(() {
                     showWastageMenu = true;
+                    showAddMenu = false;
                   });
                 },
               ),

@@ -42,10 +42,28 @@ class _HomePageState extends State<HomePage> {
           title: Text('Mess Management System'),
         ),
         drawer: NavDrawer(),
-        body: Consumer<HomeModel>(
-          builder: (_, model, ___) {
-            return activePage(model.activeIndex);
-          },
+        body: Container(
+          width: double.maxFinite,
+          height: double.maxFinite,
+          color: Color(0xfff9fafb),
+          // decoration: BoxDecoration(
+          //   gradient: LinearGradient(
+          //     begin: Alignment.centerLeft,
+          //     end: Alignment.centerRight,
+          //     stops: [0.9, 0.1],
+          //     colors: [
+          //       // Colors.orangeAccent[700],
+          //       Color(0xffec6f66),
+          //       Color(0xfff3a183),
+          //       // Colors.orangeAccent[100],
+          //     ],
+          //   ),
+          // ),
+          child: Consumer<HomeModel>(
+            builder: (_, model, ___) {
+              return activePage(model.activeIndex);
+            },
+          ),
         ),
       ),
     );
