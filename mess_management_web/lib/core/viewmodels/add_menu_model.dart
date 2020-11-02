@@ -3,7 +3,6 @@ import 'package:mess_management_web/core/viewmodels/base_model.dart';
 import 'package:mess_management_web/service_locator.dart';
 
 class AddMenuModel extends BaseModel {
-
   final service = locator<MenuService>();
 
   String breakfast = "";
@@ -14,14 +13,16 @@ class AddMenuModel extends BaseModel {
   AddMenuModel(this.dateTime);
 
   Future<void> addMenu() async {
-    if(breakfast.isNotEmpty){
+    status = Status.LOADING;
+    if (breakfast.isNotEmpty) {
       await service.addMenu(dateTime, "Breakfast", breakfast.split(","));
     }
-    if(lunch.isNotEmpty){
+    if (lunch.isNotEmpty) {
       await service.addMenu(dateTime, "Lunch", lunch.split(","));
     }
-    if(dinner.isNotEmpty){
+    if (dinner.isNotEmpty) {
       await service.addMenu(dateTime, "Dinner", dinner.split(","));
     }
+    status = Status.COMPLETED;
   }
 }

@@ -181,6 +181,10 @@ class _ExpensesDataState extends State<ExpensesData> {
                         var k = await Provider.of<MessDataModel>(context,
                                 listen: false)
                             .addExpense(amount);
+                        if (k == "Created successfully") {
+                          Provider.of<MessDataModel>(context, listen: false)
+                              .getExpenses();
+                        }
                         setState(() {
                           infoText = k;
                         });

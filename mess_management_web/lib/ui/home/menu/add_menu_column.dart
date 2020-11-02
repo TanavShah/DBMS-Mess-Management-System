@@ -45,13 +45,15 @@ class AddMenuColumn extends StatelessWidget {
                 height: 16,
               ),
               AppButton(
-                text: 'ADD',
-                onPressed: () async {
-                  await model.addMenu();
-                  Provider.of<MenuModel>(context, listen: false)
-                      .fetchMenu(menuDate);
-                },
-              )
+                text: model.loading ? 'UPLOADING' : 'ADD',
+                onPressed: model.loading
+                    ? null
+                    : () async {
+                        await model.addMenu();
+                        Provider.of<MenuModel>(context, listen: false)
+                            .fetchMenu(menuDate);
+                      },
+              ),
             ],
           ),
         ),
