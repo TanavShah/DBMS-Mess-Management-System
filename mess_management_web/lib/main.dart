@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mess_management_web/colors.dart';
 import 'package:mess_management_web/core/services/auth_service.dart';
 import 'package:mess_management_web/service_locator.dart';
+import 'package:mess_management_web/styles.dart';
 import 'router.dart' as myRouter;
 
 String initRoute = 'login';
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.robotoTextTheme(),
         appBarTheme: AppBarTheme(
           color: appOrange,
-          textTheme: GoogleFonts.robotoTextTheme(),
+          textTheme:
+              GoogleFonts.robotoTextTheme(),
         ),
       ),
       initialRoute: initRoute,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mess_management_web/colors.dart';
 import 'package:mess_management_web/core/services/auth_service.dart';
 import 'package:mess_management_web/core/viewmodels/feedback_model.dart';
 import 'package:mess_management_web/core/viewmodels/home_model.dart';
@@ -9,6 +10,7 @@ import 'package:mess_management_web/ui/home/add_data/add_data_page.dart';
 import 'package:mess_management_web/ui/home/feedback/feedback_page.dart';
 import 'package:mess_management_web/ui/home/feedback/view_feedbacks.dart';
 import 'package:mess_management_web/ui/home/menu/mess_menu_page.dart';
+import 'package:mess_management_web/ui/home/mess_data/mess_data_page.dart';
 import 'package:mess_management_web/ui/home/mess_members/view_list_page.dart';
 import 'package:mess_management_web/ui/home/profile/profile_page.dart';
 import 'package:provider/provider.dart';
@@ -64,6 +66,8 @@ class _HomePageState extends State<HomePage> {
         return AddMemberPage(isStudent: true);
       case 7:
         return AddMemberPage(isStudent: false);
+      case 8:
+        return MessDataPage();
     }
     return MessMenuPage();
   }
@@ -112,6 +116,10 @@ class NavDrawer extends StatelessWidget {
               title: 'View Workers',
               index: 5,
             ),
+            NavDrawerItem(
+              title: 'Mess Data',
+              index: 8,
+            )
           ],
           ListTile(
             onTap: () async {
